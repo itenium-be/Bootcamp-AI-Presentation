@@ -3,3 +3,6 @@ presentation/node_modules/
 presentation/dist/
 presentation/.slidev/
 presentation/migration/
+
+# rest
+.claude/settings.local.json
