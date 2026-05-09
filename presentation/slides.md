@@ -10,42 +10,39 @@ first: 2026-05-11
 ---
 
 # AI Driven Development
-# From Vibe Coding to Agentic Engineering
+## From Vibe Coding to Agentic Engineering
 
 ::image::
 
 ![](./images/cover.png)
 
+
 ---
-layout: section
+layout: statement
 ---
 
 # Prompt Engineering
+## It's 2023
 
-::subtitle::
+<div v-click style="position: relative; display: inline-block;">
 
-A short eulogy
+![](./images/prompt-engineering-job.png)
 
----
-layout: default
----
+<div v-click="2" style="
+  position: absolute;
+  top: 92px; left: -15px;
+  width: 140px; height: 50px;
+  border: 6px solid #E78200;
+  border-radius: 50%;
+  transform: rotate(-4deg);
+  pointer-events: none;
+"></div>
 
-# Prompt Engineering — RIP
+</div>
 
-<v-clicks depth="2">
+::image::
 
-- 2023: "Prompt Engineer" — six-figure job titles
-- 2024: "Just write better prompts" courses everywhere
-- 2025: dried up — the prompts moved into the system prompt, the skills, the agent loop
-- 2026: the frontier is no longer one magical sentence
-
-</v-clicks>
-
-<!--
-- Pause after the 2026 line — let it land
-- Don't doom; this is the setup for the ladder
-- Anecdote: prompt-engineering bootcamps from 2023 — where are they now?
--->
+![](./images/prompt-engineering.png)
 
 
 ---
