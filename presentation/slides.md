@@ -111,7 +111,7 @@ Where are you now?
 layout: default
 ---
 
-# Levels of Agentic Engineering
+# Ladders of AI Maturity
 
 <MaturityLadder
   :items="[
@@ -155,6 +155,23 @@ layout: quote
 
 ![](./images/context-engineering.jpg)
 
+---
+layout: statement
+---
+
+# LLMs are stateless
+## The harness is where state lives
+
+::image::
+
+![](./images/llms-stateless.jpg)
+
+<!--
+The whole context is sent to the LLM at every turn.  
+The first part is fixed, you only pay full price once, then it hits the cache
+and you pay ~10% of the cost.
+-->
+
 
 ---
 layout: default-aside
@@ -184,6 +201,13 @@ Before we can start with Context Engineering,
 we need to go back to Prompt Engineering.
 
 **WHAT is the prompt?**
+
+**System Prompt**:  
+You are an AI assistant + pages of practical operational guidance
+
+**&lt;system-reminder&gt;**: Authoritative  
+- bypass middle-rot, added close to the action
+- SessionStart, gitStatus, file changes, claude hooks (PreToolUse, stuff in settings.json), skill invocation
 -->
 
 
@@ -198,14 +222,15 @@ layout: default-aside
 
 - Context Windows have grown considerably
 - But the middle is the "dumb zone"
-- Instructions in the middle get followed less reliably
-- **Implications**:
-  - Big `CLAUDE.md` files are harmful
-  - MCP Tools you're not using for the task at hand eat precious context
+  - Instructions in the middle get followed less reliably
+- Big `CLAUDE.md` files are harmful (avoid `/init` bloat)
+  - Don't add what's inferable from the code
+  - If the code is ambiguous, fix the code instead
+- <small>MCP Tools you're not using for the task at hand eat precious context</small>
 
 </v-clicks>
 
-<div v-click class="full-width text-3xl italic text-orange-400 mt-10">
+<div v-click class="full-width text-3xl italic text-orange-400 mt-5">
 The Context Window is your budget - use it wisely
 </div>
 
@@ -214,10 +239,8 @@ The Context Window is your budget - use it wisely
 ![](./images/lost-in-the-middle.jpg)
 
 <!--
-Lost in the middle: https://arxiv.org/abs/2307.03172
-
+- Lost in the middle: https://arxiv.org/abs/2307.03172
 - ETH Zurich (2026): bloated AGENTS.md files actively hurt performance
-- Don't write what's inferable from the code. Fix the code first.
 -->
 
 
@@ -272,6 +295,28 @@ Circumvent these with jailbreaking...
 OpenAI Codex base_instructions:  
 https://simonwillison.net/2026/Apr/28/openai-codex/
 -->
+
+
+---
+layout: default-aside
+---
+
+# The System Prompt
+## Injects an Extensive Bash Manual
+
+<VClickTable
+  :headers="['Category', 'Examples']"
+  :rows="[
+    ['Tool routing', 'Use Read, not cat · Use Edit, not sed'],
+    ['Shell hygiene', 'Quote paths with spaces · don\'t <code>cd</code> unnecessarily'],
+    ['Dangerous-command warnings', 'Don\'t <code>rm -rf /</code> · don\'t <code>git reset --hard</code> without reason · never skip pre-commit hooks'],
+    ['Tool-specific recipes', 'How to make a commit · how to create a PR via <code>gh</code>'],
+    ['Performance tips', '<code>find</code> from <code>.</code> not <code>/</code> · longest-alternative-first in regex'],
+    ['Behavioral defaults', 'Run independent tools in parallel · don\'t sleep between commands · use TodoWrite for multi-step work'],
+  ]"
+  :firstVisible="1"
+  size="sm"
+/>
 
 
 ---
@@ -345,7 +390,7 @@ layout: default-aside
 
 </v-clicks>
 
-<div class="full-width text-2xl italic text-orange-400 mt-2">
+<div v-click class="full-width text-2xl italic text-orange-400 mt-2">
 Don't put load-bearing facts only in chat.
 <br>Put them in memory or CLAUDE.md.
 </div>
@@ -393,6 +438,53 @@ layout: default-aside
 - Skill authoring is itself a Superpowers skill (meta)
 -->
 
+
+---
+layout: default
+---
+
+# Context Monitoring
+
+- `/statusline`: Keep constant track of your context window
+- Avoid `/compact`, but "_land the plane_" and `/clear`
+  - Start thinking about a new session once you hit **40%**
+- If you're unsure what's eating your `/context`:
+
+![](./images/slash-context.png)
+
+
+<!--
+`~/.claude/settings.json`:  
+```json
+"statusLine": {
+  "type": "command",
+  "command": "bash statusline.sh"
+},
+```
+-->
+
+---
+layout: default-aside
+---
+
+# Progressive Context Disclosure
+
+<v-clicks depth="2">
+
+- The pattern: thin index → load detail on demand
+- Same shape across three mechanisms:
+  - **CLAUDE.md** ≈ 100 lines, table of contents
+  - **Memory**: MEMORY.md index, files load when relevant
+  - **Skills**: name + description upfront, body loads on invocation
+
+</v-clicks>
+
+::image::
+
+![](./images/progressive-context-disclosure.jpg)
+
+
+
 ---
 layout: comparison
 ---
@@ -433,6 +525,13 @@ layout: comparison
 </div>
 
 <!--
+**Roll your own**:  
+I attended "Coding is dead" where teams presented their work.
+A team of two devs showed me 4+ weeks of work. They rolled their own.
+Their demo looked like what one person would create in two days
+with superpowers.
+
+**Superpowers**:  
 The FourOnARow modernization spec/plan and execution
 is currently being done with Superpowers.
 -->
@@ -484,23 +583,7 @@ Or:
 - ⭐ 15k https://github.com/plandex-ai/plandex
 -->
 
----
-layout: statement
----
 
-# Case Study: Four on a row
-## Where we at...
-
-<!--
-**Short demo of spec/plan**
-
-My test run didn't work! The BotVsBot worked but human placement didn't!!  
-- Empty Button + Background="Transparent" + UniformGrid cell sizing
-- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
-- Fixed with one additional prompt
-- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
-- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
--->
 
 
 ---
@@ -530,28 +613,6 @@ instruction layering · eviction policy
 - Pace this slide — it's the conceptual reset before the practical slides
 -->
 
-
----
-layout: default
----
-
-# AGENTS.md / CLAUDE.md as a 100-line TOC
-
-<v-clicks depth="2">
-
-- OpenAI's pattern: AGENTS.md ≈ 100 lines, **table of contents only**
-- Detail lives in linked structured docs the agent loads on demand
-- Documentation **freshness in CI** — not ad-hoc updates that go stale
-- ETH Zurich (2026): bloated AGENTS.md files actively hurt agent performance
-- Don't write what's inferable from the code. Fix the code first.
-
-</v-clicks>
-
-<!--
-- OpenAI's own AGENTS.md is public — show it
-- "Freshness in CI" = part of pre-commit / a CI check
-- Test: if it's already in the README, skip it from CLAUDE.md
--->
 
 ---
 layout: default
@@ -597,6 +658,26 @@ layout: default
 - Team aspect: everyone gets the same skill loadout
 - Block's 3 principles: descriptive name, scoped trigger, layered detail
 -->
+
+
+---
+layout: statement
+---
+
+# Case Study: Four on a row
+## What are these superpowers doing...
+
+<!--
+**Short demo of spec/plan + subagents**
+
+My test run didn't work! The BotVsBot worked but human placement didn't!!  
+- Empty Button + Background="Transparent" + UniformGrid cell sizing
+- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
+- Fixed with one additional prompt
+- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
+- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
+-->
+
 
 ---
 layout: section
