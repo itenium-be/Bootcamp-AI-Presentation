@@ -169,6 +169,7 @@ layout: default-aside
 ---
 
 # The Prompt
+## More than the conversation
 
 <PromptPrism
   :items="[

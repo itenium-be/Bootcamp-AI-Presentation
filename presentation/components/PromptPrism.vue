@@ -2,7 +2,7 @@
   <div class="prompt-prism">
     <svg class="prism-svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <filter id="prism-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id="prism-glow" filterUnits="userSpaceOnUse" x="-50" y="-50" width="1100" height="700">
           <feGaussianBlur stdDeviation="3" result="blur" />
           <feMerge>
             <feMergeNode in="blur" />
@@ -11,15 +11,17 @@
         </filter>
       </defs>
 
-      <path
+      <line
         v-for="(item, i) in items"
         :key="'b' + i"
         class="beam"
-        :d="beamPath(i)"
+        :x1="200"
+        :y1="boxCenterY(i)"
+        :x2="770"
+        :y2="255"
         :stroke="palette[i % palette.length]"
-        stroke-width="4"
+        stroke-width="7"
         stroke-linecap="round"
-        fill="none"
         filter="url(#prism-glow)"
         v-click="firstVisible > i ? undefined : i + 1 - firstVisible"
       />
@@ -62,8 +64,8 @@ const props = withDefaults(defineProps<{
 
 function boxCenterY(i: number) {
   const total = props.items.length
-  const top = 60
-  const bottom = 540
+  const top = 30
+  const bottom = 480
   const step = (bottom - top) / Math.max(total - 1, 1)
   return top + i * step
 }
@@ -76,18 +78,6 @@ function boxStyle(i: number) {
   }
 }
 
-function beamPath(i: number) {
-  const x1 = 240
-  const y1 = boxCenterY(i)
-  const x2 = 830
-  const y2 = 300
-  // If a line would be horizontal (middle box), arc it above the output box
-  if (Math.abs(y1 - y2) < 1) {
-    return `M ${x1} ${y1} C 420 200, 660 200, ${x2} ${y2}`
-  }
-  // Otherwise: straight line
-  return `M ${x1} ${y1} L ${x2} ${y2}`
-}
 </script>
 
 <style scoped>
@@ -179,9 +169,9 @@ function beamPath(i: number) {
 
 .output-label {
   position: absolute;
-  left: 83%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  left: 73%;
+  top: 42.5%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: 0.5rem;
