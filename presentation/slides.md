@@ -50,13 +50,10 @@ layout: agenda
 textSize: sm
 items:
   - The Maturity Ladder
-  - Building Blocks (system prompts, CLAUDE.md, memory, skills)
-  - Superpowers — the fast on-ramp
-  - Context Engineering in practice
+  - Context Engineering
   - Guardrails — TDD & hooks
   - Code Reviews — the 2026 problem
   - Gallery of Leverage
-  - Monday morning
 ---
 
 ---
@@ -95,13 +92,8 @@ layout: default-aside
 
 <!--
 AI is especially good in a few things ouf of the box:  
-ex: Prototyping, Onboarding, Modernization, Refactoring, Replacing obsolete dependencies
-
-**Short demo of spec/plan**
-
-We're just letting it run:
-- These frameworks make it especially easy to get started with AI Driven Development
-- We'll integrate the results with other things we'll talk about during this course
+ex: Prototyping, Onboarding, Modernization, Refactoring, Replacing obsolete dependencies  
+-> Just fire it up now, we'll cover details later!
 -->
 
 
@@ -213,12 +205,19 @@ layout: default-aside
 
 </v-clicks>
 
+<div v-click class="full-width text-3xl italic text-orange-400 mt-10">
+The Context Window is your budget - use it wisely
+</div>
+
 ::image::
 
 ![](./images/lost-in-the-middle.jpg)
 
 <!--
 Lost in the middle: https://arxiv.org/abs/2307.03172
+
+- ETH Zurich (2026): bloated AGENTS.md files actively hurt performance
+- Don't write what's inferable from the code. Fix the code first.
 -->
 
 
@@ -276,124 +275,166 @@ https://simonwillison.net/2026/Apr/28/openai-codex/
 
 
 ---
-layout: default
+layout: default-aside
 ---
 
-# CLAUDE.md hierarchy
+# CLAUDE.md Hierarchy
 
-<v-clicks depth="2">
+<v-clicks>
 
-- `~/.claude/CLAUDE.md` — your global preferences (skill levels, communication style)
-- `<project>/CLAUDE.md` — repo-wide conventions (committed)
-- `<project>/CLAUDE.local.md` — your personal overrides (gitignored)
-- `<subdir>/CLAUDE.md` — narrow rules for one area
-- They **stack**, deeper wins
-- Project CLAUDE.md overrides global. Subdir overrides project.
+- `Program Files/ClaudeCode/CLAUDE.md`
+  - **Org**: security policies, compliance requirements
+- `~/.claude/CLAUDE.md`
+  - **Personal Global**: skill levels, communication style
+- `<project>/CLAUDE.md`
+  - **Team**: architecture, coding standards, common workflows
+- `<project>/CLAUDE.local.md`
+  - **Personal Local**: sandbox URLs, preferred test data
+- `<subdir>/CLAUDE.md`
+  - **Team Folder**: narrow rules for one area
+- Use `AGENTS.md` for cross-tool compatibility
 
 </v-clicks>
 
+::image::
+
+![](./images/claude-mds.jpg)
+
 <!--
-- Live demo: show your own ~/.claude/CLAUDE.md briefly
-- .local is gitignored by Claude Code default
-- Test "is this rule loaded?" → just ask Claude
-- Anti-pattern: stuffing personal prefs into project CLAUDE.md (commits to repo)
+My `~/.claude/CLAUDE.md` contained "Don't add 'Co-Authored' to git commit messages":  
+Undeterministic + I was paying these tokens for every session, every project  
+-> This is what "Claude Code PreToolUse hooks" are for!
+
+That is what Claude told me, but then I thought:
+
+-> It would always try to add it first, it would fail, then retry it
+-> Wasting even more tokens! The right way is:
+~/.claude/settings.json: { "attribution": { "commit": "", "pr": "" } }
+
+**WHAT**:  
+- Claude makes the same mistake a second time
+- A code review catches something Claude should have known about the codebase
+- You type the same correction or clarification into chat that you typed last session
+- A new teammate would need the same context to be productive
+
+**NOTES**:  
+- HTML comment blocks are stripped out before injected into context (only for humans)
+- Use "@FILE.md" to load additional files into a CLAUDE.md
+- In `.claude/rules`, use frontmatter "paths" to conditionally load md files (ex: src/api/**/*.ts)
+- CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1 claude --add-dir ../shared-config
+
+See: https://code.claude.com/docs/en/memory
 -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Memory & Compaction
 
 <v-clicks depth="2">
 
-- **Auto-memory**: `~/.claude/projects/<proj>/memory/` — Claude builds it as you talk
-  - User memories, feedback, project facts, references
-  - `/memory` to inspect, edit, prune
-- **Compaction**: long sessions get summarized, old messages drop
-  - "Context rot": accuracy decreases as token count grows
+- **Auto-Memory**: `~/.claude/projects/<proj>/memory/`
+  - Claude builds it as the session goes on
+    - Build commands, debugging insights, architecture notes, preferences, workflow habits
+  - `/memory` to inspect & prune
+    - Stale memory is worse than no memory
+- **Compaction**:
+  - _"Context rot"_: accuracy decreases as token count grows
   - Compaction fights it — but you lose detail you can't get back
-- Don't put load-bearing facts only in chat. Put them in memory or CLAUDE.md.
 
 </v-clicks>
 
+<div class="full-width text-2xl italic text-orange-400 mt-2">
+Don't put load-bearing facts only in chat.
+<br>Put them in memory or CLAUDE.md.
+</div>
+
+::image::
+
+![](./images/compaction.jpg)
+
+
 <!--
-- Four memory types: user, feedback, project, reference
-- Memory beats CLAUDE.md for transient/dated context
-- Stale memory is worse than no memory — clean it
-- /memory live to show the structure
+Memory beats CLAUDE.md for transient/dated context
+
+"Land the plane": use `/new` instead of relying on lossy compactions  
+Consider creating a handoff prompt to kick-start the new session.
+
+MEMORY.md: only first 200 lines or 25k is actually injected into context  
+Topic files like debugging.md or patterns.md are read on demand, as needed
 -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Skills
 
-<v-clicks depth="2">
+<v-clicks>
 
-- A markdown file Claude loads on-demand when its description matches what you're doing
-- **Frontmatter** declares when to use it:
-  - `name`, `description` (the discovery hook), `when_to_use`
-- **Local**: `<project>/.claude/skills/` — committed, team-shared
-- **Global**: `~/.claude/skills/` — your personal toolkit across projects
-- Examples that already ship with Superpowers: brainstorming, TDD, debugging, code-review, plan-writing
-- Anatomy: instructions, examples, optional checklists, optional sub-references
+- Loaded automatically or on-demand
+- Only **frontmatter** for **discovery** is loaded in every context (name & description)
+- **Project**: `<project>/.claude/skills/`
+- **Personal**: `~/.claude/skills/`
+- **Anatomy**: instructions, examples, optional checklists, sub-references
 
 </v-clicks>
 
+::image::
+
+![](./images/skills.jpg)
+
+
 <!--
-- Show one Superpowers skill open
-- Description = the discovery hook (what Claude searches against)
+- See `research/superpowers/brainstorming/SKILL.md`
+- A folder for each skill, with only SKILL.md mandatory
 - Skills can reference other skills (composability)
 - Skill authoring is itself a Superpowers skill (meta)
 -->
-
-
----
-layout: section
----
-
-# Superpowers
-
-::subtitle::
-
-The fast on-ramp
 
 ---
 layout: comparison
 ---
 
 # Why Superpowers
+## Or Spec-Kit, BMAD, ...
 
 <div class="cols">
 <div class="col">
 
 ### Roll your own
 
+<v-clicks>
+
 - Total control
 - Months to build a real workflow
 - Every team writes the same skills from scratch
 - You learn a lot — slowly
+
+</v-clicks>
 
 </div>
 <div class="col">
 
 ### Superpowers
 
+<v-clicks>
+
 - Opinionated workflow OOTB
 - Brainstorming, TDD, debugging, code review, plan-writing
-- 121k+ stars, real usage
+- ⭐ 184k stars, real usage
 - Override what you don't like
-- **Start working today**
+- **Can help a lot without you having to think about it, today**
+
+</v-clicks>
 
 </div>
 </div>
 
 <!--
-- Adoption path: install → use → override → eventually replace what you've outgrown
-- Jesse Vincent / @obra: "imposing rigorous methodology on existing model > letting better model run free"
-- Don't sell — let them try it
+The FourOnARow modernization spec/plan and execution
+is currently being done with Superpowers.
 -->
 
 
@@ -401,36 +442,66 @@ layout: comparison
 layout: default
 ---
 
-# Peek at the background Claude
+# Other Projects
 
-<v-clicks depth="2">
+<div class="dense">
 
-- It's been running for ~30 minutes
-- What it produced so far:
-  - A spec it wrote from our prompt
-  - A plan with concrete steps
-  - Subagent dispatches happening in parallel
-- We don't read the work. Just notice the **shape**.
-- Back to it at the end of the session.
+| ⭐    | Project        | What it is                                            |
+| ----- | -------------- | ----------------------------------------------------- |
+| 184k  | [Superpowers]  | Composable Claude Code skills workflow                |
+| 73k   | [OpenHands]    | Autonomous runtime — sandboxed coding agent           |
+| 61k   | [Cline]        | IDE assistant — open-source agent inside VS Code      |
+| 46k   | [BMAD-METHOD]  | Multi-persona agile framework (PM, Dev, …)            |
+| 44k   | [Aider]        | CLI — git-native AI pair programmer                   |
+| 37k   | [agent-skills] | Addy Osmani's curated skills                          |
 
-</v-clicks>
+[Superpowers]: https://github.com/obra/superpowers
+[OpenHands]: https://github.com/OpenHands/OpenHands
+[Cline]: https://github.com/cline/cline
+[BMAD-METHOD]: https://github.com/bmad-code-org/BMAD-METHOD
+[Aider]: https://github.com/Aider-AI/aider
+[agent-skills]: https://github.com/addyosmani/agent-skills
+
+</div>
+
+<div class="full-width text-2xl italic text-orange-400 mt-15">
+We'll get deeper into MCPs, Skills, Plugins, ... in another session!
+</div>
 
 <!--
-- Things to show: worktree, spec.md, plan.md, subagent log
-- Resist questions about WHAT the work is
-- Goal is showing autonomy shape, not solving a problem live
+Or:
+- ⭐ 184k https://github.com/obra/superpowers
+- ⭐ 73k https://github.com/OpenHands/OpenHands
+- ⭐ 61k https://github.com/cline/cline
+- ⭐ 61k https://github.com/gsd-build/get-shit-done
+- ⭐ 46k https://github.com/bmad-code-org/BMAD-METHOD
+- ⭐ 44k https://github.com/aaif-goose/goose
+- ⭐ 44k https://github.com/Aider-AI/aider
+- ⭐ 37k https://github.com/addyosmani/agent-skills
+- ⭐ 33k https://github.com/continuedev/continue
+- ⭐ 27k https://github.com/eyaltoledano/claude-task-master
+- ⭐ 19k https://github.com/stitionai/devika
+- ⭐ 15k https://github.com/plandex-ai/plandex
 -->
 
-
 ---
-layout: section
+layout: statement
 ---
 
-# Context Engineering
+# Case Study: Four on a row
+## Where we at...
 
-::subtitle::
+<!--
+**Short demo of spec/plan**
 
-Lost in the middle
+My test run didn't work! The BotVsBot worked but human placement didn't!!  
+- Empty Button + Background="Transparent" + UniformGrid cell sizing
+- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
+- Fixed with one additional prompt
+- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
+- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
+-->
+
 
 ---
 layout: default
