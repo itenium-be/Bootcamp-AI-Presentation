@@ -38,14 +38,18 @@
       <span class="box-label">{{ item }}</span>
     </div>
 
-    <div v-if="showResult" class="output-label">
-      <span class="result-arrow">⟶</span>
-      <span class="result-text">{{ resultLabel }}</span>
+    <div v-if="showResult" class="output-position" :style="{ '--grow-scale': growScale }">
+      <div class="output-label" :class="{ flashing }">
+        <span class="result-text">{{ resultLabel }}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, watch, computed } from 'vue'
+import { useNav } from '@slidev/client'
+
 const props = withDefaults(defineProps<{
   items: string[]
   firstVisible?: number
@@ -78,6 +82,24 @@ function boxStyle(i: number) {
   }
 }
 
+const { clicks } = useNav()
+const flashing = ref(false)
+const beamClicks = computed(() => Math.max(props.items.length - props.firstVisible, 0))
+const growScale = computed(() => {
+  const beamsRevealed = Math.min(Math.max(clicks.value, 0), beamClicks.value)
+  return 1 + beamsRevealed * 0.09
+})
+let flashTimer: ReturnType<typeof setTimeout> | undefined
+
+watch(clicks, (val, oldVal) => {
+  const prev = oldVal ?? 0
+  if (val > prev && val <= beamClicks.value) {
+    flashing.value = false
+    requestAnimationFrame(() => { flashing.value = true })
+    if (flashTimer) clearTimeout(flashTimer)
+    flashTimer = setTimeout(() => { flashing.value = false }, 500)
+  }
+})
 </script>
 
 <style scoped>
@@ -167,11 +189,16 @@ function boxStyle(i: number) {
   text-overflow: ellipsis;
 }
 
-.output-label {
+.output-position {
   position: absolute;
   left: 73%;
   top: 42.5%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(var(--grow-scale, 1));
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.output-label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -180,17 +207,62 @@ function boxStyle(i: number) {
   padding: 0.5rem 1rem;
   border-radius: 8px;
   border: 2px solid #E78200;
-  box-shadow: 0 0 28px rgba(231, 130, 0, 0.5);
   font-family: 'Rubik', sans-serif;
   font-weight: 600;
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   white-space: nowrap;
+  animation: prompt-breathe 2.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.output-label.flashing {
+  animation:
+    prompt-breathe 2.6s ease-in-out infinite,
+    prompt-flash 0.45s ease-out;
+}
+
+@keyframes prompt-breathe {
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(231, 130, 0, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 42px rgba(231, 130, 0, 0.7);
+  }
+}
+
+@keyframes prompt-flash {
+  0%   { transform: scale(1);    filter: brightness(1)   saturate(1); }
+  30%  { transform: scale(1.08); filter: brightness(1.5) saturate(1.3); }
+  100% { transform: scale(1);    filter: brightness(1)   saturate(1); }
 }
 
 .result-arrow {
   font-size: 1.3em;
   line-height: 1;
+}
+
+.result-text {
+  background-image: linear-gradient(
+    100deg,
+    #E78200 0%,
+    #E78200 35%,
+    #fff3b0 50%,
+    #ffd84a 55%,
+    #E78200 70%,
+    #E78200 100%
+  );
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: holographic 3.5s linear infinite;
+}
+
+@keyframes holographic {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
 }
 </style>

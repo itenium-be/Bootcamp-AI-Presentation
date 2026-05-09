@@ -187,6 +187,39 @@ layout: default-aside
 
 ![](./images/the-prompt.jpg)
 
+<!--
+Before we can start with Context Engineering,
+we need to go back to Prompt Engineering.
+
+**WHAT is the prompt?**
+-->
+
+
+---
+layout: default-aside
+---
+
+# Why does this matter
+## Lost in the Middle
+
+<v-clicks depth="2">
+
+- Context Windows have grown considerably
+- But the middle is the "dumb zone"
+- Instructions in the middle get followed less reliably
+- **Implications**:
+  - Big `CLAUDE.md` files are harmful
+  - MCP Tools you're not using for the task at hand eat precious context
+
+</v-clicks>
+
+::image::
+
+![](./images/lost-in-the-middle.jpg)
+
+<!--
+Lost in the middle: https://arxiv.org/abs/2307.03172
+-->
 
 
 ---
@@ -424,30 +457,6 @@ instruction layering · eviction policy
 - Tobi Lutke: "the art of providing all the context for the task to be plausibly solvable"
 - Screenplay vs sentence
 - Pace this slide — it's the conceptual reset before the practical slides
--->
-
----
-layout: default
----
-
-# LLMs read the start and end. The middle is the dumb zone.
-
-<v-clicks depth="2">
-
-- "Lost in the middle" — [arxiv 2307.03172](https://arxiv.org/abs/2307.03172)
-- Long contexts: instructions in the middle get followed less reliably
-- **Implications**:
-  - Put hard rules at the **top** of CLAUDE.md
-  - Put recap at the **bottom** of long prompts
-  - Long context ≠ used context
-
-</v-clicks>
-
-<!--
-- Reference NOTE_ContextEngineering.png + NOTE_ContextEngineering2.png — copy into images/ before talk
-- Why CLAUDE.md must be short: model literally reads less of it as it grows
-- Arxiv paper tested retrieval; agents see similar effects anecdotally
-- Compaction fights middle-rot but loses detail you can't get back
 -->
 
 
