@@ -14,7 +14,7 @@ first: 2026-05-11
 
 ::image::
 
-![](./images/cover.png)
+![](./images/cover.webp)
 
 
 ---
@@ -42,7 +42,7 @@ layout: statement
 
 ::image::
 
-![](./images/prompt-engineering.png)
+![](./images/prompt-engineering.jpg)
 
 
 ---
@@ -67,27 +67,41 @@ layout: section
 
 ::subtitle::
 
-Another Claude is already working
+Let's burn some tokens
 
 ---
-layout: default
+layout: default-aside
 ---
 
-# A second Claude is running right now
+# Case Study: Four on a row
+## Modernization of a pet project
 
 <v-clicks depth="2">
 
-- Different window, modernizing a real project
-- Running with **Superpowers**: brainstorm → spec → plan → subagents → execute
-- We don't watch it. It works while we talk.
-- We come back at the end and see what it did
+- Something I made back in school
+  - VB.NET, .NET 2.0, WinForms
+- Let's modernize this baby
+  - C#, .NET 10, Avalonia
+- A demo of **obra/superpowers**
+  - brainstorm → spec → plan → subagents → execute
+- I already prepared the spec/plan
+  - Let's fire it up
 
 </v-clicks>
 
+::image::
+
+![](./images/case-study.jpg)
+
 <!--
-- Name the actual project before showing the window
-- Commit explicitly: "we will not peek for the next 90 minutes"
-- This is an autonomy demo that doesn't eat session time
+AI is especially good in a few things ouf of the box:  
+ex: Prototyping, Modernization, Refactoring, Replacing obsolete dependencies
+
+**Short demo of spec/plan**
+
+We're just letting it run:
+- These frameworks make it especially easy to get started with AI Driven Development
+- We'll integrate the results with other things we'll talk about during this course
 -->
 
 
