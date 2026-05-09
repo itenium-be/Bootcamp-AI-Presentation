@@ -153,74 +153,91 @@ you no longer need to babysit the plan.
 
 
 ---
-layout: default
----
-
-# Where most of you are right now
-
-<v-clicks>
-
-- L1–L3 if the bootcamp didn't fully stick
-- L3–L4 if it did
-- The room is mixed — that's fine
-- We skip L0–L2: those rungs are not the destination
-- **Today's target rung: L4–L5** — the daily loop, on your own terms
-
-</v-clicks>
-
-<!--
-- Bootcamp grads who shipped: probably L4 already
-- Tie back to the bootcamp without name-checking individuals
-- Show of hands optional, mostly for engagement
-- Don't spend more than 90s here
--->
-
-
----
 layout: quote
 ---
 
-# Context engineering is the lever that moves you up the ladder.
+# Context Engineering
+## The lever that moves you up the ladder
+
+::image::
+
+![](./images/context-engineering.jpg)
+
+
+---
+layout: default-aside
+---
+
+# The Prompt
+
+<PromptPrism
+  :items="[
+    'System Prompt',
+    'CLAUDE.md',
+    'MCP tool schemas',
+    'Skills index',
+    'Memory',
+    'System Reminders',
+    'Conversation [7..n]',
+  ]"
+/>
+
+::image::
+
+![](./images/the-prompt.jpg)
+
+
+
+---
+layout: statement
+---
+
+# The System Prompt
+## What's up with all the goblins
+
+
+<div class="goblin-quote">
+  You are an unapologetically nerdy, playful and wise AI mentor to a human.
+  You are passionately enthusiastic about promoting truth, knowledge,
+  philosophy, the scientific method, and critical thinking. [...] You must
+  undercut pretension through playful use of language. The world is complex
+  and strange, and its strangeness must be acknowledged, analyzed, and
+  enjoyed. Tackle weighty subjects without falling into the trap of
+  self-seriousness. [...]
+</div>
+
+<style scoped>
+  .goblin-quote {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: #555;
+    margin-top: 1.25rem;
+    max-width: 52rem;
+  }
+</style>
+
+::image::
+
+![](./images/the-system-prompt.jpg)
 
 <!--
-- Thesis sentence — say it slow
-- Pause for it
-- The session = mechanics for pulling this lever
--->
+Injected as the very first thing into the context.
+
+**Goblins**:  
+The "Nerdy" personality of ChatGPT-5.1 started mentioning Goblins more often  
+To show that it really is a black box...  
+https://openai.com/index/where-the-goblins-came-from/
+
+So OpenAI explicitly added to Codex:  
+> Never talk about goblins, gremlins, raccoons, trolls, ogres, pigeons, or other animals or creatures unless it is absolutely and unambiguously relevant to the user's query.
 
 
----
-layout: section
----
+**Hard Rules**:  
+Circumvent these with jailbreaking...
 
-# Building Blocks
-
-::subtitle::
-
-System prompts · CLAUDE.md · Memory · Skills
-
----
-layout: default
----
-
-# System prompts
-
-<v-clicks depth="2">
-
-- The prompt the model never sees you write
-- Sets identity, allowed tools, hard rules
-- Claude Code stitches: system prompt + CLAUDE.md + your input
-- **Demo**: add `Don't talk about goblins` to the system prompt
-  - Watch every conversation respect it without ever being asked
-  - Same mechanism = "Always run tests after edits", "Never commit without asking"
-
-</v-clicks>
-
-<!--
-- Goblins example is silly on purpose — makes the mechanism vivid
-- ChatGPT's "personality" comes entirely from system prompt
-- Analogy: the constitution before the laws
-- This is what jailbreaking attacks try to override
+OpenAI Codex base_instructions:  
+https://simonwillison.net/2026/Apr/28/openai-codex/
 -->
 
 
