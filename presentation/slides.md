@@ -95,7 +95,7 @@ layout: default-aside
 
 <!--
 AI is especially good in a few things ouf of the box:  
-ex: Prototyping, Modernization, Refactoring, Replacing obsolete dependencies
+ex: Prototyping, Onboarding, Modernization, Refactoring, Replacing obsolete dependencies
 
 **Short demo of spec/plan**
 
@@ -113,7 +113,7 @@ layout: section
 
 ::subtitle::
 
-Where are you climbing from?
+Where are you now?
 
 ---
 layout: default
@@ -121,25 +121,34 @@ layout: default
 
 # Levels of Agentic Engineering
 
-<v-clicks depth="2">
-
-- **L0** Manual coding — no AI
-- **L1** Autocomplete — Copilot, Cursor tab
-- **L2** Chat & copy-paste — ChatGPT in another window
-- **L3** AI-enabled IDE — Cursor Composer, multi-file edits
-- **L4** Single-agent loops — Claude Code with CLAUDE.md
-- **L5** Custom workflows — slash commands, hooks, skills
-- **L6** Multi-agent teams — sub-agents, parallel work
-- **L7** Background agents — autonomous work, you review the result
-- **L8** Self-improving systems — the agent updates its own playbook
-
-</v-clicks>
+<MaturityLadder
+  :items="[
+    'Manual Caveman Coding',
+    'Tab Complete & Chat Copy/Paste',
+    'Agent IDE',
+    'Context Engineering',
+    'Compounding Engineering',
+    'MCP & Skills',
+    'Harness Engineering',
+    'Background Agents',
+    'Autonomous Agent Teams',
+  ]",
+  :highlight="[3, 6]"
+/>
 
 <!--
-- Source: bassimeledath.com/blog/levels-of-agentic-engineering
-- Competing taxonomies: Simon Willison's 5 levels, Steve Yegge's 8 for Gas Town
-- Numbers don't matter — the trajectory does
-- Don't try to teach the whole ladder; just show the shape
+**Agent IDE**: Heavy use of Plan Mode  
+**Compounding Engineering**: Improve the next sessions (Kieran Klaassen)  
+**Harness Engineering**: Automated feedback loops  
+**Background Agents**: Where we're at in 2026. Plan Mode is dying, if everything before is in place,
+you no longer need to babysit the plan.  
+**Autonomous Agent Teams**: The active frontier (ex: Claude's experimental Agent Teams)
+
+**Sources**:
+- https://bassimeledath.com/blog/levels-of-agentic-engineering
+- Competing taxonomies:
+  - Simon Willison's 5 levels: https://simonwillison.net/2026/Jan/28/the-five-levels/
+  - Steve Yegge's 8 levels: https://www.augmentcode.com/guides/steve-yegge-8-levels-ai-assisted-development
 -->
 
 
