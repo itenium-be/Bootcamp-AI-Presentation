@@ -67,6 +67,14 @@ Let's burn some tokens
 
 ---
 layout: default-aside
+h1:
+  type: hash
+  color: primary
+  position: start
+h2:
+  type: brackets
+  color: muted
+  position: all
 ---
 
 # Case Study: Four on a row
@@ -111,6 +119,10 @@ Where are you now?
 
 ---
 layout: default
+h1:
+  type: brackets
+  color: primary
+  position: 3-4
 ---
 
 # Ladders of AI Maturity
@@ -230,6 +242,10 @@ layout: statement
 
 ---
 layout: default-aside
+h1:
+  type: dot
+  color: muted
+  position: end
 ---
 
 # The Prompt
@@ -354,6 +370,10 @@ https://simonwillison.net/2026/Apr/28/openai-codex/
 
 ---
 layout: default-aside
+h1:
+  type: brackets
+  color: primary
+  position: 2-3
 ---
 
 # The System Prompt
@@ -467,6 +487,10 @@ Topic files like debugging.md or patterns.md are read on demand, as needed
 
 ---
 layout: default-aside
+h1:
+  type: braces
+  color: primary
+  position: all
 ---
 
 # Skills
@@ -496,6 +520,10 @@ layout: default-aside
 
 ---
 layout: default
+h1:
+  type: hash
+  color: primary
+  position: start
 ---
 
 # MCPs & CLIs
@@ -539,6 +567,10 @@ DeepWiki MCP: Explore an unknown open-source library
 ---
 layout: default
 textSize: sm
+h1:
+  type: braces
+  color: muted
+  position: all
 ---
 
 # Eviction Policy
@@ -573,6 +605,14 @@ textSize: sm
 ---
 layout: default-aside
 textSize: sm
+h1:
+  type: brackets
+  color: muted
+  position: all
+h2:
+  type: dot
+  color: muted
+  position: end
 ---
 
 # Retrieval Strategy
@@ -749,6 +789,10 @@ Or:
 
 ---
 layout: comparison
+h1:
+  type: braces
+  color: primary
+  position: 2
 ---
 
 # Why Superpowers
@@ -861,6 +905,14 @@ layout: quote
 
 ---
 layout: default
+h1:
+  type: slashes
+  color: primary
+  position: end
+h2:
+  type: brackets
+  color: muted
+  position: all
 ---
 
 # Compounding Engineering
@@ -883,6 +935,14 @@ layout: default
 
 ---
 layout: default-aside
+h1:
+  type: hash
+  color: muted
+  position: start
+h2:
+  type: dot
+  color: primary
+  position: end
 ---
 
 # Compound
@@ -933,6 +993,10 @@ Corrected the same thing twice? It doesn't belong in chat.
 ---
 layout: default-aside
 textSize: sm
+h1:
+  type: slashes
+  color: muted
+  position: end
 ---
 
 # Skills-in-git
@@ -1053,6 +1117,10 @@ layout: quote
 
 ---
 layout: default
+h1:
+  type: hash
+  color: muted
+  position: start
 ---
 
 # Hooks &gt; Instructions
@@ -1083,6 +1151,10 @@ bypassing the lost in the middle problem.
 ---
 layout: default-aside
 textSize: sm
+h1:
+  type: brackets
+  color: primary
+  position: 2
 ---
 
 # Agent Backpressure
@@ -1194,6 +1266,10 @@ It is aspirational for sure!
 
 ---
 layout: default
+h1:
+  type: dot
+  color: primary
+  position: end
 ---
 
 # Code Reviews
@@ -1274,6 +1350,10 @@ layout: section
 
 ---
 layout: default
+h1:
+  type: semicolon
+  color: muted
+  position: end
 ---
 
 # Thoughtworks Tech Radar Vol 34
@@ -1315,6 +1395,10 @@ Worth flagging:
 
 ---
 layout: default
+h1:
+  type: braces
+  color: primary
+  position: all
 ---
 
 # What's actionable
