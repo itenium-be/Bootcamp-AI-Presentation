@@ -871,6 +871,29 @@ layout: default-aside
 **Short demo of spec/plan + subagents (dispatching-parallel-agents)**
 -->
 
+---
+layout: default
+---
+
+# Plan Mode
+## Shift+Tab: think before touching files
+
+<v-clicks depth="2">
+
+- The cycle: default → auto-accept → **plan**
+- Agent reads, searches, drafts a plan
+  - No edits, no commands, no side effects
+- You approve the plan before execution
+- The primitive that Superpowers' brainstorming and plan-writing build on
+
+</v-clicks>
+
+<div v-click class="full-width text-2xl italic text-orange-400 mt-10">
+The cheapest way to catch "the agent misunderstood the task"
+<br>before it writes 200 lines of the wrong thing.
+</div>
+
+
 
 ---
 layout: break
