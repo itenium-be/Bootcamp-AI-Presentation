@@ -564,6 +564,38 @@ DeepWiki MCP: Explore an unknown open-source library
 
 
 
+
+---
+layout: default
+---
+
+# Sub-agents
+## A separate session, its own context
+
+<v-clicks depth="2">
+
+- Spawned by your main session, runs in a fresh context window
+- Returns a **summary**, not raw output
+- Two payoffs:
+  - **Context isolation** — main window stays clean
+  - **Parallelism** — fan out independent work
+- Cost: spin-up overhead, less context sharing with main session
+- Today: noisy reads, code reviews, research, multi-perspective review
+
+</v-clicks>
+
+<div v-click class="full-width text-2xl italic text-orange-400 mt-5">
+The cheapest way to widen your effective context window.
+</div>
+
+<!--
+- Eviction Policy callback: "running in their own context window" — that's this.
+- Retrieval Strategy callback: noisy reads return summaries.
+- Code Reviews callback: same primitive, fan-out instead of isolation.
+- Compounding callback: a sub-agent for a recurring task IS a codification target.
+-->
+
+
 ---
 layout: default
 textSize: sm
