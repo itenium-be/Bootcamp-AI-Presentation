@@ -1286,6 +1286,10 @@ layout: default
 - **Write one skill**
   - The thing you do every day that the agent always gets wrong.
   - That's your first compound interest payment.
+- **Wire up LSP MCP** (Serena ⭐ 24k)
+  - Agent gets go-to-def, find-refs, type info — not grep + guess.
+  - Refactors land aware of every call site.
+  - An MCP that earns its rent.
 
 </v-clicks>
 
