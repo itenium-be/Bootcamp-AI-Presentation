@@ -1053,106 +1053,85 @@ layout: quote
 layout: default
 ---
 
-# Guardrails
-## TDD
+# Hooks &gt; Instructions
+## The model can't talk its way out of hooks
 
-<v-clicks depth="2">
+<v-clicks>
 
-- Tests are cheap. Make them load-bearing.
-- Bad: "write me feature X with tests"
-- Good: red-green-refactor, **enforced**
-  - Write the test first
-  - Run it. Watch it fail. (skill checks the failure is the right shape)
-  - Implement
-  - Run it. Watch it pass.
-  - Refactor under green
-- Hooks can enforce: no implementation edits while no failing test exists
-- Result: 85-95% coverage instead of 30-50%
-
-</v-clicks>
-
-<!--
-- Why TDD works better WITH AI: forces it to slow down, otherwise it writes test+impl together (cheating)
-- Hook can block impl edits while no failing test exists
-- Superpowers' TDD skill enforces the cycle
-- Common failure: agent writes a passing test for nothing
--->
-
----
-layout: default
----
-
-# Hooks &gt; instructions
-
-<v-clicks depth="2">
-
-- Instructions in CLAUDE.md: model can forget, skip, rationalize
-- Hooks: deterministic shell commands the model **cannot bypass**
+- CLAUDE.md: model can forget, skip, rationalize
+- Hooks: deterministic commands the model **cannot bypass**
 - Lifecycle events:
   - `PreToolUse` — block dangerous edits
   - `PostToolUse` — auto-format, run linter
   - `UserPromptSubmit` — inject context, validate scope
   - `SessionStart` — set up memory, kick off background tasks
-- **Use hooks for anything you need every time.**
 
 </v-clicks>
 
-<!--
-- Live demo: show a hook firing
-- Model can't talk its way out of a hook
-- Example hooks: pre-commit lint, post-edit format, session-start memory load
-- One hook = one rule that holds forever
--->
+<div v-click class="full-width text-4xl italic text-orange-400 mt-10">
+Use hooks for anything you want every time
+</div>
 
 ---
-layout: default
+layout: default-aside
+textSize: sm
 ---
 
-# Agent backpressure
+# Agent Backpressure
+## Control the flood of new code
 
 <v-clicks depth="2">
 
-- Give the agent a feedback loop it reads:
-  - Type checker
-  - Tests
-  - Linter
-  - Formatter
-  - LSP diagnostics
+- Give the agent a feedback loop:
+  - **LSP diagnostics**: squiggly lines for the agent
+  - Type checks: enable hardest constraints
+  - Tests: failing CI on <90% coverage (95%? 99%?)
+  - Linting & formatting: all the code looks the same, always
   - Visual inspection (screenshots, Playwright)
-- **Context-efficient output**: tools should return `✓` on success
+  - Connect your observability tooling
+- **Tool-output Shaping**: return only `✓` on success
   - Verbose success logs eat context for nothing
-  - Save the words for the failures
-- See: [latentpatterns.com/glossary/agent-backpressure](https://latentpatterns.com/glossary/agent-backpressure)
+  - Save the words for failures
 
 </v-clicks>
 
+::image::
+
+![](./images/agent-backpressure.jpg)
+
 <!--
-- Tools that work well: tsc --noEmit, vitest --reporter dot, eslint --quiet
-- "Return ✓" non-obvious until you see verbose output eat 5k tokens
-- Save the words for failures
+LSP: Language Server Protocol:  
+The squiggly lines (errors, warnings, hints), typed events, fast (incremental, no build needed)  
+Set up once, the agent benefits forever.
+
+Linting & Formatting: no unnecessary file edits  
+All the code looks exactly the same.
+
+Tools that work well: tsc --noEmit, vitest --reporter dot, eslint --quiet  
+https://latentpatterns.com/glossary/agent-backpressure
 -->
+
 
 ---
 layout: default
 ---
 
-# Compounding Engineering
+# Guardrails
+## Test-Driven-Development
 
 <v-clicks depth="2">
 
-- Every bug found = a skill or hook so it never happens again
-- Every PR review comment = a CLAUDE.md rule
-- Every "ugh, the agent always does X wrong" = a check that prevents X
-- **The agent gets smarter at your codebase the longer you use it**
-- This is the closest you'll get to L8 (self-improving) right now
+- For the last 20 years I considered TDD a choice
+- Today, if you're not doing TDD, you're doing it wrong
+- Tests have become crazy cheap
+  - Frontend + Gateway + Backend(s) + Database(s)
+  - That was a two month project
+  - Today that's pretty much one prompt
+  - If it wasn't, it is after the first project because you codified it as a new skill/command
+- Hook Enforcement: Stop edits when no failing test exists
 
 </v-clicks>
 
-<!--
-- Trigger: every time you correct Claude, ask "skill or hook?"
-- Block's principles for designing skills are the canonical reference
-- Compound interest: one skill/week × 50 weeks = a different agent next year
--->
 
 ---
 layout: section
