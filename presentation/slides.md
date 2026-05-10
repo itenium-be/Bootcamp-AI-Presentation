@@ -191,10 +191,10 @@ layout: default
   hub-label="Context Engineering"
   :items="[
     'Memory Budgeting',
-    'Retrieval Strategy',
-    'Tool-output Shaping',
     'Instruction Layering',
+    'Retrieval Strategy',
     'Eviction Policy',
+    'Tool-output Shaping',
   ]"
 />
 
