@@ -1272,6 +1272,46 @@ layout: section
 ::subtitle::
 
 
+---
+layout: default
+---
+
+# Thoughtworks Tech Radar Vol 34
+## Industry consensus on what we covered
+
+<div class="dense">
+
+| Ring   | Blip                                | Talk Section                  |
+| ------ | ----------------------------------- | ----------------------------- |
+| Adopt  | Mutation testing                    | Harness · TDD                 |
+| Trial  | [Superpowers][tw]                   | Case Study                    |
+| Trial  | Agent Skills                        | Context · Skills              |
+| Trial  | Feedback sensors for coding agents  | Harness · Backpressure        |
+| Trial  | Spec-driven development             | Compounding · Spec/Plan       |
+| Assess | Model Context Protocol (MCP)        | Context · MCPs & CLIs         |
+| Assess | Codebase cognitive debt             | Compounding · Trade-offs      |
+| Hold   | Agent instruction bloat             | Context · Lost in the Middle  |
+
+[tw]: https://www.thoughtworks.com/radar
+
+</div>
+
+<div class="full-width text-2xl italic text-orange-400 mt-8">
+Not just my opinion — it's where the industry is heading.
+</div>
+
+<!--
+Source: thoughtworks.com/radar (Vol 34)
+
+Worth flagging:
+- **Superpowers** is a named blip (Trial) — the framework we demoed is Radar-tracked
+- **Agent instruction bloat** in Hold validates the "Lost in the Middle" warning
+- **Feedback sensors for coding agents** is the Radar's name for what we called Agent Backpressure
+- **MCP** has been dialed back to Assess because of CLI vs MCP
+- **Codebase cognitive debt** (Assess) — the human downside: devs lose mental models when they don't read what they ship
+-->
+
+
 
 ---
 layout: default
