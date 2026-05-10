@@ -47,13 +47,13 @@ layout: statement
 
 ---
 layout: agenda
-textSize: sm
+textSize: lg
 items:
   - The Maturity Ladder
   - Context Engineering
-  - Guardrails — TDD & hooks
-  - Code Reviews — the 2026 problem
-  - Gallery of Leverage
+  - Compound Engineering
+  - MCP & Skills
+  - Harness Engineering
 ---
 
 ---
@@ -169,8 +169,22 @@ layout: statement
 <!--
 The whole context is sent to the LLM at every turn.  
 The first part is fixed, you only pay full price once, then it hits the cache
-and you pay ~10% of the cost.
+and you pay ~10% of the cost.  
+Changing CLAUDE.md mid-session is thus expensive.
 -->
+
+
+---
+layout: statement
+---
+
+# **Prompt**: one sentence
+# **Context**: the whole screenplay
+
+<br>
+
+## The discipline of curating **everything the model sees**
+
 
 
 ---
@@ -231,7 +245,7 @@ layout: default-aside
 </v-clicks>
 
 <div v-click class="full-width text-3xl italic text-orange-400 mt-5">
-The Context Window is your budget - use it wisely
+The Context Window is your memory budget - use it wisely
 </div>
 
 ::image::
@@ -383,7 +397,7 @@ layout: default-aside
   - Claude builds it as the session goes on
     - Build commands, debugging insights, architecture notes, preferences, workflow habits
   - `/memory` to inspect & prune
-    - Stale memory is worse than no memory
+    - Context Poisoning: Stale memory is worse than no memory
 - **Compaction**:
   - _"Context rot"_: accuracy decreases as token count grows
   - Compaction fights it — but you lose detail you can't get back
@@ -443,11 +457,55 @@ layout: default-aside
 layout: default
 ---
 
-# Context Monitoring
+# MCPs & CLIs
+
+<v-clicks depth="2">
+
+- Every MCP tool **inflates the prompt** with its schema
+- Load what you need in the current session (or unload)
+  - Audit `/mcp` periodically
+- Consider using a CLI instead: `gh` vs `GitHub MCP`
+  - A CLI tool the agent runs via Bash has zero schema cost
+- Some MCPs are very powerful
+  - Context7: Stale training data vs up-to-date open-source APIs
+  - Playwright MCP: give your agent "eyes"
+
+</v-clicks>
+
+<div v-click class="full-width text-2xl italic text-orange-400 mt-8">
+MCPs give the agent access to state or signals it can't otherwise reach
+<br>Current docs, opaque internals, live UIs, designs, production errors.
+</div>
+
+
+<!--
+**Rule of Thumb**:
+- A single bash invocation? → CLI.  
+- State between calls or structured output? → MCP.
+
+Give your agent eyes:  
+- Figma MCP: your designs
+- Sentry MCP: production logs, ...
+- Jira MCP: your tickets
+- Postgres MCP: live data
+
+Other:  
+DeepWiki MCP: Explore an unknown open-source library
+-->
+
+
+
+---
+layout: default
+textSize: sm
+---
+
+# Eviction Policy
 
 - `/statusline`: Keep constant track of your context window
-- Avoid `/compact`, but "_land the plane_" and `/clear`
   - Start thinking about a new session once you hit **40%**
+- Avoid `/compact` (lossy), but "_land the plane_" and `/clear` (nuclear)
+- Sub-agents avoid eviction by running in their own context window
 - If you're unsure what's eating your `/context`:
 
 ![](./images/slash-context.png)
@@ -465,9 +523,59 @@ layout: default
 
 ---
 layout: default-aside
+textSize: sm
+---
+
+# Retrieval Strategy
+## How code gets pulled into context
+
+<v-clicks depth="2">
+
+- **Agentic grep vs Vector RAG**
+  - Code mutates constantly, RAG index goes stale
+  - grep & read gives the agent precise, current state
+- **Tool ladder**:
+  - `glob`/`find`: narrow scope before grep/read
+  - `grep`: find symbols/strings, usually sufficient
+  - `read`: only when the full file is needed
+- **Delegate noisy read retrieval to a sub-agent**
+  - Returns a summary, not 10k lines of search hits
+- **RAG wins for**: stable docs, large external corpora
+
+</v-clicks>
+
+<div v-click class="full-width text-2xl italic text-orange-400 mt-3">
+Claude Code (grep/read) <-> Cursor, Copilot (RAG)
+</div>
+
+::image::
+
+![](./images/retrieval-strategy.jpg)
+
+<!--
+**RAG**: Retrieval-Augmented Generation
+- Fast semantic-ish lookup BUT
+- RAG needs a re-index pipeline + Top-k chunks lose structural context (the surrounding functions, the imports)
+- DB: Pinecone, pgvector, Chroma, ...
+
+**Tools Ladder**:
+- `grep`: matching lines, pull the few lines around those lines into context
+- `glob/find`: find matching files
+- `read`: where the sub-agents with summary come in
+
+**When RAG fits**:
+- For example Context7 for docs
+- MCP servers for Confluence, Wiki, ...
+For Claude just a tool call, RAG is someone elses problem
+-->
+
+
+---
+layout: default-aside
 ---
 
 # Progressive Context Disclosure
+## How config gets pulled into context
 
 <v-clicks depth="2">
 
@@ -484,6 +592,117 @@ layout: default-aside
 ![](./images/progressive-context-disclosure.jpg)
 
 
+
+
+
+
+
+
+
+
+
+---
+layout: default
+---
+
+# Context Engineering
+## Not prompt writing
+
+
+- Memory budgeting
+- Retrieval strategy
+- Tool-output shaping
+- Instruction layering
+- Eviction policy
+
+
+
+
+---
+layout: default-aside
+textSize: sm
+---
+
+# Context Engineering
+## What's actionable
+
+<v-clicks depth="2">
+
+- **The pattern**: progressive disclosure — thin index, load on demand
+- **Closer to the action = more reliable**
+  - Chat (one-shots) → CLAUDE.md (top vs middle) → skill (loads when relevant) → harness (deterministic hooks)
+- **Your conversation is context too**
+  - Don't paste 200-line stack traces — extract the 5 lines that matter
+  - Tell the agent to be terse in `CLAUDE.md`; verbose narration eats your own budget
+- **Watch your MCPs**: every tool schema is rent, CLIs are free
+- **At 40%, land the plane**: `/clear` beats `/compact`
+
+</v-clicks>
+
+<div v-click class="full-width text-2xl italic text-orange-400 mt-3">
+The context window is your budget. Spend it like one.
+</div>
+
+::image::
+
+![](./images/context-takeaways.jpg)
+
+<!--
+`CLAUDE.md`:  
+Important instructions at the top, not buried in 500 lines of prose.
+
+**MCPs**: A 20-tool MCP can cost 5k+ tokens of
+schema before you've done any work. (`/mcp` and `/context`)
+-->
+
+
+
+
+
+
+
+
+
+---
+layout: default
+---
+
+# Skills-in-git: your team's playbook
+
+<v-clicks depth="2">
+
+- Every skill checked into the repo = institutional memory the agent reads
+- "How we deploy", "how we write tests", "how we review PRs"
+- New hire + AI: onboarded against the same skill files a senior reads
+- Skills compound: every lesson learned becomes one more skill the next session inherits
+- See: [engineering.block.xyz/blog/3-principles-for-designing-agent-skills](https://engineering.block.xyz/blog/3-principles-for-designing-agent-skills)
+
+</v-clicks>
+
+<!--
+- Pull a real example from Itenium ("how we deploy to staging")
+- Team aspect: everyone gets the same skill loadout
+- Block's 3 principles: descriptive name, scoped trigger, layered detail
+-->
+
+
+---
+layout: statement
+---
+
+# Case Study: Four on a row
+## What are these Superpowers doing...
+
+<!--
+**Short demo of spec/plan + subagents (dispatching-parallel-agents)**
+
+My test run didn't work! The BotVsBot worked but human placement didn't!!  
+- Empty Button + Background="Transparent" + UniformGrid cell sizing
+- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
+- Fixed with one additional prompt
+- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
+- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
+-->
 
 ---
 layout: comparison
@@ -585,98 +804,6 @@ Or:
 
 
 
-
----
-layout: default
----
-
-# It's not prompt writing
-
-<div class="full-width text-xl italic text-orange-400">
-
-Memory budgeting · retrieval strategy · tool-output shaping ·
-instruction layering · eviction policy
-
-</div>
-
-<v-clicks>
-
-- Prompt = one sentence
-- Context = the whole screenplay
-- The discipline of curating **everything the model sees**
-
-</v-clicks>
-
-<!--
-- Tobi Lutke: "the art of providing all the context for the task to be plausibly solvable"
-- Screenplay vs sentence
-- Pace this slide — it's the conceptual reset before the practical slides
--->
-
-
----
-layout: default
----
-
-# CLIs &gt; MCPs (often)
-
-<v-clicks depth="2">
-
-- Every MCP tool **inflates the system prompt** with its schema
-- 20 MCPs loaded → thousands of tokens before you've even prompted
-- A CLI tool the agent runs via Bash: schema cost = 0
-- **Rule of thumb**: load MCPs you actually need this session, not "just in case"
-- DeepWiki MCP, Context7, Braintrust — load when relevant, unload otherwise
-
-</v-clicks>
-
-<!--
-- Contrarian take — flag it
-- Counter-examples: Playwright (browser), GitHub MCP earn their schema cost
-- Load MCPs per-project, not globally
-- A bash CLI tool the agent invokes = zero schema cost
--->
-
----
-layout: default
----
-
-# Skills-in-git: your team's playbook
-
-<v-clicks depth="2">
-
-- Every skill checked into the repo = institutional memory the agent reads
-- "How we deploy", "how we write tests", "how we review PRs"
-- New hire + AI: onboarded against the same skill files a senior reads
-- Skills compound: every lesson learned becomes one more skill the next session inherits
-- See: [engineering.block.xyz/blog/3-principles-for-designing-agent-skills](https://engineering.block.xyz/blog/3-principles-for-designing-agent-skills)
-
-</v-clicks>
-
-<!--
-- Pull a real example from Itenium ("how we deploy to staging")
-- Team aspect: everyone gets the same skill loadout
-- Block's 3 principles: descriptive name, scoped trigger, layered detail
--->
-
-
----
-layout: statement
----
-
-# Case Study: Four on a row
-## What are these superpowers doing...
-
-<!--
-**Short demo of spec/plan + subagents**
-
-My test run didn't work! The BotVsBot worked but human placement didn't!!  
-- Empty Button + Background="Transparent" + UniformGrid cell sizing
-- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
-- Fixed with one additional prompt
-- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
-- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
--->
 
 
 ---
