@@ -41,8 +41,8 @@
         stroke-width="13"
         stroke-linecap="round"
         :style="{
-          '--pulse-duration': `${3 + i * 0.45}s`,
-          '--pulse-delay': `${-i * 0.7}s`,
+          '--pulse-duration': `${1.6 + i * 0.2}s`,
+          '--pulse-end': -radiusFor(i),
         }"
         filter="url(#compass-glow)"
         v-click="firstVisible > i ? undefined : i + 1 - firstVisible"
@@ -134,7 +134,7 @@ function cardStyle(i: number) {
   max-width: 100%;
   max-height: 100%;
   margin: auto;
-  transform: translateY(-70px);
+  transform: translateY(-40px);
 }
 
 .compass-svg {
@@ -161,11 +161,14 @@ function cardStyle(i: number) {
 
 .spoke-pulse {
   stroke-dasharray: 40 700;
-  animation: pulse-travel var(--pulse-duration, 3.5s) linear infinite;
-  animation-delay: var(--pulse-delay, 0s);
+  stroke-dashoffset: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
   mix-blend-mode: screen;
+}
+
+.spoke-pulse:not(.slidev-vclick-hidden) {
+  animation: pulse-travel var(--pulse-duration, 1.8s) ease-in-out infinite alternate;
 }
 
 .spoke-pulse.slidev-vclick-hidden {
@@ -174,7 +177,7 @@ function cardStyle(i: number) {
 
 @keyframes pulse-travel {
   from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: -740; }
+  to   { stroke-dashoffset: var(--pulse-end, -240); }
 }
 
 .vertex-card {

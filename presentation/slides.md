@@ -51,8 +51,7 @@ textSize: lg
 items:
   - The Maturity Ladder
   - Context Engineering
-  - Compound Engineering
-  - MCP & Skills
+  - Compounding Engineering
   - Harness Engineering
 ---
 
@@ -159,13 +158,20 @@ layout: quote
 ![](./images/context-engineering.jpg)
 
 
+---
+layout: statement
+---
+
+> The art of providing all the context for the task to be plausibly solvable by the LLM.
+- Tobi Lutke (Shopify CEO)
+
 
 ---
 layout: default
 ---
 
 # Context Engineering
-## Not prompt writing
+## Designing what the agent sees
 
 
 <CompassDisciplines
@@ -180,11 +186,11 @@ layout: default
 />
 
 <!--
-**Memory budgeting**: MCPs, CLAUDE.mds, chat hygiene  
-**Retrieval strategy**: TOCs, Skills, RAG  
-**Tool-output shaping**: Harness Engineering -> "npm test" returns ✓  
-**Instruction layering**:  
-**Eviction policy**: Land the plane  
+**Memory Budgeting**: What have you spent before you have started  
+**Retrieval Strategy**: How does info get pulled into context  
+**Tool-output Shaping**: Tools inject their output into context; more in Harness Engineering section  
+**Instruction Layering**: Where you place what matters  
+**Eviction Policy**: What when the context has filled up  
 -->
 
 
@@ -796,29 +802,83 @@ layout: default-aside
 
 # So... Superpowers?
 
+<v-clicks depth="2">
+
+- Brainstorm: what are we gonna build today!?
+- **External State** as context offloading
+  - Spec Writing: ensure the brainstorm doesn't rot
+  - Plan Writing: turn the spec into instructions
+- Handover to Sub-Agents: keep main window clean
+
+</v-clicks>
+
+<div v-click class="full-width text-5xl italic text-orange-400 mt-20">
+!! This is Context Engineering 101 !!
+</div>
+
+::image::
+
+![](./images/superpowers.jpg)
+
 
 <!--
 **Short demo of spec/plan + subagents (dispatching-parallel-agents)**
-
-My test run didn't work! The BotVsBot worked but human placement didn't!!  
-- Empty Button + Background="Transparent" + UniformGrid cell sizing
-- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
-- Fixed with one additional prompt
-- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
-- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
 -->
+
+
+---
+layout: break
+---
+
+# ☕ Break / QA
+
+::timer::
+
+<Timer minutes="10" />
+
+::image::
+
+![](./images/break.jpg)
+
+
+
 
 
 ---
 layout: section
 ---
 
-# Compound Engineering
+# Compounding Engineering
 
 ::subtitle::
 
-An LLM is dumb
+Improve every session
 
+
+---
+layout: default
+---
+
+# Compounding Engineering
+## Each session improves the next ones
+
+<CompoundingEngineering :items="[
+  { title: 'PLAN',     sub: 'Plan it out in detail' },
+  { title: 'DELEGATE', sub: 'Let the agent do the work' },
+  { title: 'ASSESS',   sub: 'Make sure it works\n(tests, review)' },
+  { title: 'CODIFY',   sub: 'Record what you learned' },
+]" />
+
+
+---
+layout: default
+---
+
+# Codify
+## Record what you learned
+
+- What worked? What broke? What pattern to follow next time?
+- 
 
 
 ---
@@ -1054,19 +1114,6 @@ layout: default
 - Not 2026 reality for most teams
 -->
 
----
-layout: break
----
-
-# ☕ Break
-
-::timer::
-
-<Timer minutes="10" />
-
-::image::
-
-![](./images/cover.png)
 
 ---
 layout: section
@@ -1272,6 +1319,18 @@ layout: default
 <!--
 - Explicit invitation: "what topics do YOU want?"
 - Series shape can shift based on attendance and interest
+-->
+
+
+<!--
+FourOnARow Result:
+
+My test run didn't work! The BotVsBot worked but human placement didn't!!  
+- Empty Button + Background="Transparent" + UniformGrid cell sizing
+- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
+- Fixed with one additional prompt
+- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
+- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
 -->
 
 ---
