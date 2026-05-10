@@ -1072,6 +1072,12 @@ layout: default
 Use hooks for anything you want every time
 </div>
 
+<!--
+Injected right next to the action, treated by Claude as high-authority context
+bypassing the lost in the middle problem.
+-->
+
+
 ---
 layout: default-aside
 textSize: sm
@@ -1137,74 +1143,91 @@ layout: default
 layout: section
 ---
 
-# Code Reviews
+# Case Study: Four on a row
 
 ::subtitle::
 
-The 2026 problem
+Code Review - The 2026 problem
+
+<!--
+With so much code being generated  
+Who has time to review all that?
+
+Let's kick off the code review of our modernization project.
+-->
+
+---
+layout: statement
+---
+
+# Coding was never the bottleneck
+## But now reviews have become the coding bottleneck
+
+
+
+---
+layout: statement
+textSize: sm
+---
+
+# Code must not be written by humans.
+# Code must not be reviewed by humans.
+
+<br>
+
+## StrongDM Dark Factory
+
+<!--
+It is aspirational for sure!
+-->
+
+
+---
+layout: default
+---
+
+# Code Reviews
+## Don't let the model rubber-stamp itself
+
+<ReviewerSplit />
+
+<!--
+Model A is too invested in the code it already wrote
+which is in it's context. It needs a fresh pair of
+eyes. This can be the same LLM, just a new context works.  
+-> Like humans **shared blind spots**
+
+A completely different model is even better.
+
+https://www.latent.space/p/reviews-dead
+-->
+
+
+---
+layout: default
+---
+
+# Multi-Agent Review
+## Security, Performance, Integration, Complexity, ...
+
+<ReviewFanout />
+
+<!--
+**Failure mode**: review theater / bikeshedding (calibrate by % comments → changes)  
+**Human Role**: arbitrate disagreement, sign off on architecture
+-->
+
 
 ---
 layout: quote
 ---
 
-# Code must not be written by humans.<br/>Code must not be reviewed by humans.
-
-<!--
-- StrongDM Dark Factory provocation
-- Read slow, pause for reaction
-- Frame as a question, not an assertion
-- Don't endorse, don't reject
--->
+# Autonomous Agent Teams
+## The Frontier of AI Driven Development
 
 
----
-layout: default
----
-
-# Reviews are the new bottleneck
-
-<v-clicks depth="2">
-
-- Faros AI data: PR review times **nearly doubled** with AI-generated code
-- More code, same reviewers, same Mondays
-- "Speed in one phase created drag in every other phase"
-- The model that wrote it **shouldn't** review it (shared blind spots)
-- See: [latent.space/p/reviews-dead](https://www.latent.space/p/reviews-dead)
-
-</v-clicks>
-
-<!--
-- Reference NOTES_CodeReviews.png — copy into images/ before talk
-- Faros: PR review times nearly doubled
-- Ask the room: PR review time now vs last year?
-- This is THE productivity tax of AI today
--->
 
 
----
-layout: default
----
-
-# Multi-agent review
-
-<v-clicks depth="2">
-
-- Different agent than the one that wrote
-- Different model where possible (Claude wrote → GPT reviews, or vice versa)
-- **Specialized review skills**: security, performance, test coverage, docs
-- Agents leave **line-specific GitHub comments** like a human reviewer
-- Human role: arbitrate disagreement, sign off on architecture
-- Risk: review theater. Mitigation: track which review comments led to changes.
-
-</v-clicks>
-
-<!--
-- Review is genuinely a different cognitive task than write
-- Line-specific GH comments via `gh api`
-- Superpowers ships a code-review skill
-- Failure mode: bikeshedding (calibrate by % comments → changes)
-- The agent that wrote shouldn't review (shared blind spots)
--->
 
 ---
 layout: default
@@ -1235,189 +1258,28 @@ layout: default
 layout: section
 ---
 
-# Gallery of Leverage
+# Wrapping Up
 
 ::subtitle::
 
-Tests-as-oracle: the unifying pattern
-
----
-layout: default
----
-
-# Tests-as-oracle
-
-<v-clicks depth="2">
-
-- The pattern behind every demo coming up:
-  1. **Cover** existing behavior with tests (Claude writes them)
-  2. **Change** the implementation under green
-  3. **Trust** green = behavior preserved
-- Works for any "I want to swap X for Y" job
-- The test suite becomes the contract, not the code
-
-</v-clicks>
-
-<!--
-- Pattern predates AI but AI makes it cheap
-- The "scary refactor" disappears
-- Calibration matters: what % of behaviors do tests cover?
-- If you don't trust your tests, you don't trust the swap
--->
-
----
-layout: default
----
-
-# 1. Onboarding-fast
-
-<v-clicks depth="2">
-
-- New repo, no idea where anything lives
-- Ask Claude to produce a **map**: entry points, data flow, hot paths
-- Ask it to find "the file you'd edit to do X"
-- Ask it to **write CLAUDE.md** for the repo, then critique it
-- 30 minutes vs 2 days
-
-</v-clicks>
-
-<!--
-- Real story from your own onboarding (pick a repo)
-- Best move: ask Claude to draw the call graph for ONE feature
-- Then ask it to write CLAUDE.md, then critique what it wrote
-- New hire + AI > new hire alone
--->
-
----
-layout: default
----
-
-# 2. Modernization — VierOpEenRij
-
-<v-clicks depth="2">
-
-- Old framework / old deps / old patterns
-- Claude reads, plans the migration, executes in chunks
-- **Tests are the safety net** — if green stays green, behavior preserved
-- Run with Superpowers + sub-agents for big migrations
-- The background Claude is doing this *right now*
-
-</v-clicks>
-
-<!--
-- Tell the actual VierOpEenRij story: what was modernized, what it cost, what it saved
-- Pitfall: don't trust without tests — even with AI
-- The plan/spec/subagent loop visible in the background Claude is THIS pattern
--->
-
----
-layout: default
----
-
-# 3. Performance optimization
-
-<v-clicks depth="2">
-
-- Hot path is slow. You want a rewrite. You're scared to touch it.
-- Workflow:
-  1. Cover current behavior with tests (lock the contract)
-  2. Write new implementation alongside the old
-  3. Run tests against **both**
-  4. Both green? Delete the old code.
-- Same flow works for: refactoring legacy code, reducing complexity, simplifying APIs
-
-</v-clicks>
-
-<!--
-- Classic example: a hot loop you wanted to rewrite for years
-- Test suite IS the safety net
-- Add benchmark assertions to the suite (perf as a test)
-- "Both green, delete old" is the magic moment
--->
-
----
-layout: default
----
-
-# 4. Library swap — MomentJS
-
-<v-clicks depth="2">
-
-- MomentJS deprecated for years, still in production everywhere
-- Workflow:
-  1. Add tests for every place that uses moment (date formatting, parsing, math)
-  2. Swap to date-fns / Luxon / native `Intl.DateTimeFormat`
-  3. Tests pass → done
-- Generalizes: any library swap (lodash, jQuery, axios, MomentJS, classnames)
-- The hard part is now the test coverage — and Claude writes that
-
-</v-clicks>
-
-<!--
-- Tell the MomentJS story (what you replaced it with)
-- Generalizes because dates are well-tested by users
-- Jest snapshot tests on date strings = trivial coverage
-- Same pattern: lodash, jQuery, axios, classnames
--->
-
----
-layout: section
----
-
-# Wrap
-
-::subtitle::
-
-What did the background Claude do?
-
----
-layout: default
----
-
-# Back to our second Claude
-
-<v-clicks depth="2">
-
-- Open the worktree
-- What did it produce?
-- What's good?
-- What's funny?
-- Honest read: would you ship this?
-- What did Superpowers add over raw Claude?
-
-</v-clicks>
-
-<!--
-- ~5 min on this slide
-- If it nuked something, SHOW THAT — credibility skyrockets
-- Audience can smell sales mode
-- "Would I ship this PR?" is the right question
--->
 
 
 ---
 layout: default
 ---
 
-# Monday morning — three changes
+# What's actionable
 
 <v-clicks depth="2">
 
-1. **Add a `tests` rule to your CLAUDE.md**
-   - "After edits to `src/`, run `bun test` and report failures."
-2. **Install Superpowers**
-   - One command. You get brainstorming, TDD, debugging, code-review skills today.
-3. **Write one skill**
-   - The thing you do every day that the agent always gets wrong.
-   - That's your first compound interest payment.
+- **Install Superpowers**
+  - You get brainstorming, TDD, debugging, code-review skills today.
+- **Write one skill**
+  - The thing you do every day that the agent always gets wrong.
+  - That's your first compound interest payment.
 
 </v-clicks>
 
-<!--
-- Write these on a whiteboard or print as a handout
-- Three concrete things — no "and many more"
-- Make them small enough to do tonight
--->
 
 ---
 layout: default
@@ -1461,3 +1323,122 @@ source: itenium-be/Bootcamp-AI-Presentation
 ---
 layout: end
 ---
+
+
+
+
+
+
+
+---
+layout: section
+disabled: true
+---
+
+# Gallery of Leverage
+
+::subtitle::
+
+Tests-as-oracle: the unifying pattern
+
+---
+layout: default
+disabled: true
+---
+
+# Tests-as-oracle
+
+<v-clicks depth="2">
+
+- The pattern behind every demo coming up:
+  1. **Cover** existing behavior with tests (Claude writes them)
+  2. **Change** the implementation under green
+  3. **Trust** green = behavior preserved
+- Works for any "I want to swap X for Y" job
+- The test suite becomes the contract, not the code
+
+</v-clicks>
+
+<!--
+- Pattern predates AI but AI makes it cheap
+- The "scary refactor" disappears
+- Calibration matters: what % of behaviors do tests cover?
+- If you don't trust your tests, you don't trust the swap
+-->
+
+---
+layout: default
+disabled: true
+---
+
+# 1. Onboarding-fast
+
+<v-clicks depth="2">
+
+- New repo, no idea where anything lives
+- Ask Claude to produce a **map**: entry points, data flow, hot paths
+- Ask it to find "the file you'd edit to do X"
+- Ask it to **write CLAUDE.md** for the repo, then critique it
+- 30 minutes vs 2 days
+
+</v-clicks>
+
+<!--
+- Real story from your own onboarding (pick a repo)
+- Best move: ask Claude to draw the call graph for ONE feature
+- Then ask it to write CLAUDE.md, then critique what it wrote
+- New hire + AI > new hire alone
+-->
+
+
+---
+layout: default
+disabled: true
+---
+
+# 3. Performance optimization
+
+<v-clicks depth="2">
+
+- Hot path is slow. You want a rewrite. You're scared to touch it.
+- Workflow:
+  1. Cover current behavior with tests (lock the contract)
+  2. Write new implementation alongside the old
+  3. Run tests against **both**
+  4. Both green? Delete the old code.
+- Same flow works for: refactoring legacy code, reducing complexity, simplifying APIs
+
+</v-clicks>
+
+<!--
+- Classic example: a hot loop you wanted to rewrite for years
+- Test suite IS the safety net
+- Add benchmark assertions to the suite (perf as a test)
+- "Both green, delete old" is the magic moment
+-->
+
+---
+layout: default
+disabled: true
+---
+
+# 4. Library swap — MomentJS
+
+<v-clicks depth="2">
+
+- MomentJS deprecated for years, still in production everywhere
+- Workflow:
+  1. Add tests for every place that uses moment (date formatting, parsing, math)
+  2. Swap to date-fns / Luxon / native `Intl.DateTimeFormat`
+  3. Tests pass → done
+- Generalizes: any library swap (lodash, jQuery, axios, MomentJS, classnames)
+- The hard part is now the test coverage — and Claude writes that
+
+</v-clicks>
+
+<!--
+- Tell the MomentJS story (what you replaced it with)
+- Generalizes because dates are well-tested by users
+- Jest snapshot tests on date strings = trivial coverage
+- Same pattern: lodash, jQuery, axios, classnames
+-->
