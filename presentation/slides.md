@@ -1151,6 +1151,55 @@ bypassing the lost in the middle problem.
 ---
 layout: default-aside
 textSize: sm
+---
+
+# Hooks in practice
+## `~/.claude/settings.json`
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Edit|Write",
+      "hooks": [{ "type": "command",
+                  "command": "scripts/tdd-gate.sh" }]
+    }],
+    "PostToolUse": [{
+      "matcher": "Edit|Write",
+      "hooks": [{ "type": "command",
+                  "command": "tsc --noEmit && eslint --quiet" }]
+    }]
+  }
+}
+```
+
+<div class="full-width text-2xl italic text-orange-400 mt-5">
+No failing test → no source edit.
+<br>The agent gets the squiggles you get.
+</div>
+
+::image::
+
+![](./images/hooks-in-practice.jpg)
+
+<!--
+**tdd-gate.sh** (PreToolUse, exit 2 to block):
+- Test files always allowed (otherwise you can't write the failing test)
+- Run the suite; if everything is green, block the source edit
+- "Write a failing test first" — TDD enforced by the harness, not the agent
+
+**PostToolUse**: errors flow back to the agent like it ran the linter itself.
+This is the "Tool-output Shaping" callback to Agent Backpressure.
+
+Caveats: full-suite-on-every-edit is brutal — prefer --changed / watch artifacts.
+Hook env shape varies by Claude Code version: pull from your own working setup.
+See research/ToolUse.md for the full script + version notes.
+-->
+
+
+---
+layout: default-aside
+textSize: sm
 h1:
   type: brackets
   color: primary
@@ -1419,12 +1468,19 @@ h1:
 
 
 ---
-layout: quote
+layout: default
 ---
 
 # What's next
 ## What should we focus on next?
 
+- Ralph Wiggum
+- YOLO vs Sandboxes
+- Local Models
+- Writing your team's playbook in skills
+- Modernization & autonomous loops
+- MCP, Skills & extending Claude
+- Frameworks comparison
 
 ---
 layout: socials
