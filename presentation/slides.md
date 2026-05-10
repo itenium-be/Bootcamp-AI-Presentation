@@ -93,7 +93,7 @@ layout: default-aside
 ![](./images/case-study.jpg)
 
 <!--
-AI is especially good in a few things ouf of the box:  
+AI is especially good in a few things out of the box:  
 ex: Prototyping, Onboarding, Modernization, Refactoring, Replacing obsolete dependencies  
 -> Just fire it up now, we'll cover details later!
 -->
@@ -114,6 +114,7 @@ layout: default
 ---
 
 # Ladders of AI Maturity
+## Humans steer. Agents execute.
 
 <MaturityLadder
   :items="[
@@ -892,6 +893,7 @@ layout: default-aside
 - Continuous improvement: humans write wikis humans forget
 - Compounding engineering: agents write artifacts the next agent reads
 - The output is **machine memory**, not human memory
+- Freshness in CI — stale skills rot like stale memory
 
 </v-clicks>
 
@@ -1106,7 +1108,7 @@ textSize: sm
 ![](./images/agent-backpressure.jpg)
 
 <!--
-LSP: Language Server Protocol:  
+LSP: Language Server Protocol (MS, VSCode):  
 The squiggly lines (errors, warnings, hints), typed events, fast (incremental, no build needed)  
 Set up once, the agent benefits forever.
 
@@ -1233,7 +1235,9 @@ layout: quote
 # Autonomous Agent Teams
 ## The Frontier of AI Driven Development
 
-
+<!--
+https://code.claude.com/docs/en/agent-teams
+-->
 
 ---
 layout: default
@@ -1307,7 +1311,7 @@ source: itenium-be/Bootcamp-AI-Presentation
 layout: end
 ---
 
-
+The End
 
 
 
