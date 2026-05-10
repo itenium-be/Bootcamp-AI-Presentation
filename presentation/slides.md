@@ -1154,6 +1154,14 @@ With so much code being generated
 Who has time to review all that?
 
 Let's kick off the code review of our modernization project.
+
+**FourOnARow Result of the test run**:  
+My test run didn't work! The BotVsBot worked but human placement didn't!!  
+- Empty Button + Background="Transparent" + UniformGrid cell sizing
+- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
+- Fixed with one additional prompt
+- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
+- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
 -->
 
 ---
@@ -1227,30 +1235,27 @@ layout: quote
 
 
 
-
-
 ---
 layout: default
 ---
 
 # Dark Factory
+## Mostly Aspirational Today
 
 <v-clicks depth="2">
 
 - StrongDM: a development pipeline where humans only set direction
 - Agents write, agents review, agents merge
 - Humans monitor metrics, not commits
-- Today: works for narrow domains (boilerplate, migrations)
 - 2027: who knows
-- See: [simonwillison.net/2026/Feb/7/software-factory](https://simonwillison.net/2026/Feb/7/software-factory/)
 
 </v-clicks>
 
 <!--
-- Mostly aspirational today
-- Stripe Minions: 1000+ PRs/week. TELUS: 500k hours saved
 - Hard questions: ownership, accountability, when something breaks
 - Not 2026 reality for most teams
+
+https://simonwillison.net/2026/Feb/7/software-factory/
 -->
 
 
@@ -1282,34 +1287,12 @@ layout: default
 
 
 ---
-layout: default
+layout: quote
 ---
 
-# Series ahead
+# What's next
+## What should we focus on next?
 
-| #  | Title                                | What's new                                                  |
-| -- | ------------------------------------ | ----------------------------------------------------------- |
-| S2 | Writing your team's playbook in skills | From *using* Superpowers to *authoring* skills for your repo |
-| S3 | Modernization & autonomous loops     | Ralph Wiggum, sub-agents, real Dark Factory recipes         |
-| S4 | MCP & extending Claude               | Practical MCP servers, when to build your own               |
-| S5 | Frameworks comparison *(optional)*   | BMAD vs Superpowers vs SpecKit                              |
-
-<!--
-- Explicit invitation: "what topics do YOU want?"
-- Series shape can shift based on attendance and interest
--->
-
-
-<!--
-FourOnARow Result:
-
-My test run didn't work! The BotVsBot worked but human placement didn't!!  
-- Empty Button + Background="Transparent" + UniformGrid cell sizing
-- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
-- Fixed with one additional prompt
-- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
-- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
--->
 
 ---
 layout: socials
