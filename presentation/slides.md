@@ -740,6 +740,7 @@ Or:
 - ⭐ 33k https://github.com/continuedev/continue
 - ⭐ 27k https://github.com/eyaltoledano/claude-task-master
 - ⭐ 19k https://github.com/stitionai/devika
+- ⭐ 16k https://github.com/EveryInc/compound-engineering-plugin
 - ⭐ 15k https://github.com/plandex-ai/plandex
 -->
 
@@ -866,25 +867,100 @@ layout: default
   { title: 'PLAN',     sub: 'Plan it out in detail' },
   { title: 'DELEGATE', sub: 'Let the agent do the work' },
   { title: 'ASSESS',   sub: 'Make sure it works\n(tests, review)' },
-  { title: 'CODIFY',   sub: 'Record what you learned', shine: true },
+  { title: 'COMPOUND', sub: 'Record what you learned', shine: true },
 ]" />
 
+<!--
+**CODIFY to COMPOUND**:  
+- What worked? What broke? What pattern to follow next time?
+- But... We can't put everything in CLAUDE.md!
+  - Which is why we need to master Context Engineering first
+-->
 
 ---
-layout: default
+layout: default-aside
 ---
 
-# Codify
+# Compound
 ## Record what you learned
 
 <v-clicks depth="2">
 
-- What worked? What broke? What pattern to follow next time?
-- But... We can't put everything in CLAUDE.md!
-  - Which is why we need to master Context Engineering first
-
+- Continuous improvement: humans write wikis humans forget
+- Compounding engineering: agents write artifacts the next agent reads
+- The output is **machine memory**, not human memory
 
 </v-clicks>
+
+<div v-click class="full-width text-3xl italic text-orange-400 mt-10">
+AI engineering makes you faster today.
+<br>Compounding makes you faster tomorrow, and each day after.
+<br>- Keiran Klaassen
+</div>
+
+::image::
+
+![](./images/compoung.jpg)
+
+
+---
+layout: default-aside
+---
+
+# Record what you learned
+## Targets of codification
+
+<v-clicks>
+
+- **Skill** — when domain-specific guidance is needed
+- **Slash command** — when a multi-step workflow repeats
+- **Hook** — when behavior must be enforced, not requested
+- **Subagent** — when review/research can fan out in parallel
+- **CLAUDE.md** — when it's always-relevant project context
+
+</v-clicks>
+
+<div v-click class="full-width text-3xl italic text-orange-400 mt-15">
+Corrected the same thing twice? It doesn't belong in chat.
+</div>
+
+<!--
+CONNECT WITH THE OTHER LADDERS:
+- Context Engineering — "We covered the budget. Now you'll see why codifying carefully
+matters: every skill, hook, command costs context."
+- Harness Engineering — "Hooks are how CODIFY becomes deterministic." Natural bridge.
+- Background Agents / Autonomous Teams — compounding is the prerequisite. Without codified
+  knowledge, autonomous agents make the same mistakes forever.
+
+
+What worked in the plan and what needed adjustment
+Issues discovered during testing that weren't caught earlier
+Common mistakes the agent made
+Patterns and best practices that should be reused
+Then embed these insights into:
+
+Claude MD / system prompts: Global coding standards
+Slash commands: Repeatable workflows (e.g., /test-with-validation)
+Subagents: Specialized validators (e.g., security review agent)
+Hooks: Automated checks that prevent regressions
+
+
+
+Trade-offs
+Pros:
+Accelerating productivity: Each feature genuinely makes the next faster
+Knowledge preservation: Learnings don't depend on individual memory
+Better onboarding: New team members (human or AI) leverage accumulated knowledge
+Reduced repetition: Agent stops making the same mistakes
+Living documentation: Instructions stay current because they're used daily
+
+Cons:
+Upfront time investment: Requires discipline to document after each feature
+Maintenance overhead: Prompts and commands need updates as patterns change
+Over-specification risk: Too many rules can make agents inflexible
+Requires tooling: Needs extensible agent system (slash commands, hooks, etc.)
+Prompt bloat: System prompts can grow large over time
+-->
 
 ---
 layout: default
@@ -907,6 +983,31 @@ layout: default
 - Team aspect: everyone gets the same skill loadout
 - Block's 3 principles: descriptive name, scoped trigger, layered detail
 -->
+
+---
+layout: statement
+---
+
+# Docs ❌ · Skills ✅
+
+<h2>
+Same artifact. New name.
+<br>Devs love it now.
+</h2>
+
+![](./images/devs-writing.png)
+
+
+<!--
+Arb = arbitrage. Tech/finance slang for exploiting an asymmetry.
+-->
+
+
+
+
+
+
+
 
 
 ---
