@@ -82,9 +82,12 @@ layout: default-aside
 - A demo of **obra/superpowers**
   - brainstorm → spec → plan → subagents → execute
 - I already prepared the spec/plan
-  - Let's fire it up
 
 </v-clicks>
+
+<div v-click class="full-width text-5xl italic mt-10">
+<FireText>Let's fire it up</FireText>
+</div>
 
 ::image::
 
@@ -154,6 +157,37 @@ layout: quote
 ::image::
 
 ![](./images/context-engineering.jpg)
+
+
+
+---
+layout: default
+---
+
+# Context Engineering
+## Not prompt writing
+
+
+<CompassDisciplines
+  hub-label="Context Engineering"
+  :items="[
+    'Memory Budgeting',
+    'Retrieval Strategy',
+    'Tool-output Shaping',
+    'Instruction Layering',
+    'Eviction Policy',
+  ]"
+/>
+
+<!--
+**Memory budgeting**: MCPs, CLAUDE.mds, chat hygiene  
+**Retrieval strategy**: TOCs, Skills, RAG  
+**Tool-output shaping**: Harness Engineering -> "npm test" returns ✓  
+**Instruction layering**:  
+**Eviction policy**: Land the plane  
+-->
+
+
 
 ---
 layout: statement
@@ -502,13 +536,21 @@ textSize: sm
 
 # Eviction Policy
 
+<v-clicks depth="2">
+
 - `/statusline`: Keep constant track of your context window
   - Start thinking about a new session once you hit **40%**
 - Avoid `/compact` (lossy), but "_land the plane_" and `/clear` (nuclear)
 - Sub-agents avoid eviction by running in their own context window
 - If you're unsure what's eating your `/context`:
 
+</v-clicks>
+
+<v-click>
+
 ![](./images/slash-context.png)
+
+</v-click>
 
 
 <!--
@@ -593,31 +635,6 @@ layout: default-aside
 
 
 
-
-
-
-
-
-
-
-
----
-layout: default
----
-
-# Context Engineering
-## Not prompt writing
-
-
-- Memory budgeting
-- Retrieval strategy
-- Tool-output shaping
-- Instruction layering
-- Eviction policy
-
-
-
-
 ---
 layout: default-aside
 textSize: sm
@@ -662,54 +679,72 @@ schema before you've done any work. (`/mcp` and `/context`)
 
 
 
+---
+layout: section
+---
+
+# Case Study: Four on a row
+
+::subtitle::
+
+What are these Superpowers doing...
+
 
 ---
 layout: default
 ---
 
-# Skills-in-git: your team's playbook
+# Superpowers
+## Or...
 
-<v-clicks depth="2">
+<div class="dense">
 
-- Every skill checked into the repo = institutional memory the agent reads
-- "How we deploy", "how we write tests", "how we review PRs"
-- New hire + AI: onboarded against the same skill files a senior reads
-- Skills compound: every lesson learned becomes one more skill the next session inherits
-- See: [engineering.block.xyz/blog/3-principles-for-designing-agent-skills](https://engineering.block.xyz/blog/3-principles-for-designing-agent-skills)
+| ⭐    | Project        | What it is                                            |
+| ----- | -------------- | ----------------------------------------------------- |
+| 184k  | [Superpowers]  | Composable Claude Code skills workflow                |
+| 73k   | [OpenHands]    | Autonomous runtime — sandboxed coding agent           |
+| 61k   | [Cline]        | IDE assistant — open-source agent inside VS Code      |
+| 46k   | [BMAD-METHOD]  | Multi-persona agile framework (PM, Dev, …)            |
+| 44k   | [Aider]        | CLI — git-native AI pair programmer                   |
+| 37k   | [agent-skills] | Addy Osmani's curated skills                          |
 
-</v-clicks>
+[Superpowers]: https://github.com/obra/superpowers
+[OpenHands]: https://github.com/OpenHands/OpenHands
+[Cline]: https://github.com/cline/cline
+[BMAD-METHOD]: https://github.com/bmad-code-org/BMAD-METHOD
+[Aider]: https://github.com/Aider-AI/aider
+[agent-skills]: https://github.com/addyosmani/agent-skills
+
+</div>
+
+<div class="full-width text-2xl italic text-orange-400 mt-10">
+We'll get deeper into MCPs, Skills, Plugins, ... in another session!
+</div>
 
 <!--
-- Pull a real example from Itenium ("how we deploy to staging")
-- Team aspect: everyone gets the same skill loadout
-- Block's 3 principles: descriptive name, scoped trigger, layered detail
+Or:
+- ⭐ 184k https://github.com/obra/superpowers
+- ⭐ 73k https://github.com/OpenHands/OpenHands
+- ⭐ 61k https://github.com/cline/cline
+- ⭐ 61k https://github.com/gsd-build/get-shit-done
+- ⭐ 46k https://github.com/bmad-code-org/BMAD-METHOD
+- ⭐ 44k https://github.com/aaif-goose/goose
+- ⭐ 44k https://github.com/Aider-AI/aider
+- ⭐ 37k https://github.com/addyosmani/agent-skills
+- ⭐ 33k https://github.com/continuedev/continue
+- ⭐ 27k https://github.com/eyaltoledano/claude-task-master
+- ⭐ 19k https://github.com/stitionai/devika
+- ⭐ 15k https://github.com/plandex-ai/plandex
 -->
 
 
----
-layout: statement
----
-
-# Case Study: Four on a row
-## What are these Superpowers doing...
-
-<!--
-**Short demo of spec/plan + subagents (dispatching-parallel-agents)**
-
-My test run didn't work! The BotVsBot worked but human placement didn't!!  
-- Empty Button + Background="Transparent" + UniformGrid cell sizing
-- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
-- Fixed with one additional prompt
-- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
-- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
--->
 
 ---
 layout: comparison
 ---
 
 # Why Superpowers
-## Or Spec-Kit, BMAD, ...
+## Skills Framework
 
 <div class="cols">
 <div class="col">
@@ -755,55 +790,58 @@ The FourOnARow modernization spec/plan and execution
 is currently being done with Superpowers.
 -->
 
+---
+layout: default-aside
+---
+
+# So... Superpowers?
+
+
+<!--
+**Short demo of spec/plan + subagents (dispatching-parallel-agents)**
+
+My test run didn't work! The BotVsBot worked but human placement didn't!!  
+- Empty Button + Background="Transparent" + UniformGrid cell sizing
+- Three subtle Avalonia behaviors that combined to produce zero-pixel hit areas.
+- Fixed with one additional prompt
+- Reason? Avalonia is Windows only; Claude ran in Ubuntu, it could not verify
+- **Mitigation? Avalonia.Headless UI test that simulates a pointer press at column-1 coords and asserts a disc state change** -- we will try this!!
+-->
+
+
+---
+layout: section
+---
+
+# Compound Engineering
+
+::subtitle::
+
+An LLM is dumb
+
+
 
 ---
 layout: default
 ---
 
-# Other Projects
+# Skills-in-git: your team's playbook
 
-<div class="dense">
+<v-clicks depth="2">
 
-| ⭐    | Project        | What it is                                            |
-| ----- | -------------- | ----------------------------------------------------- |
-| 184k  | [Superpowers]  | Composable Claude Code skills workflow                |
-| 73k   | [OpenHands]    | Autonomous runtime — sandboxed coding agent           |
-| 61k   | [Cline]        | IDE assistant — open-source agent inside VS Code      |
-| 46k   | [BMAD-METHOD]  | Multi-persona agile framework (PM, Dev, …)            |
-| 44k   | [Aider]        | CLI — git-native AI pair programmer                   |
-| 37k   | [agent-skills] | Addy Osmani's curated skills                          |
+- Every skill checked into the repo = institutional memory the agent reads
+- "How we deploy", "how we write tests", "how we review PRs"
+- New hire + AI: onboarded against the same skill files a senior reads
+- Skills compound: every lesson learned becomes one more skill the next session inherits
+- See: [engineering.block.xyz/blog/3-principles-for-designing-agent-skills](https://engineering.block.xyz/blog/3-principles-for-designing-agent-skills)
 
-[Superpowers]: https://github.com/obra/superpowers
-[OpenHands]: https://github.com/OpenHands/OpenHands
-[Cline]: https://github.com/cline/cline
-[BMAD-METHOD]: https://github.com/bmad-code-org/BMAD-METHOD
-[Aider]: https://github.com/Aider-AI/aider
-[agent-skills]: https://github.com/addyosmani/agent-skills
-
-</div>
-
-<div class="full-width text-2xl italic text-orange-400 mt-15">
-We'll get deeper into MCPs, Skills, Plugins, ... in another session!
-</div>
+</v-clicks>
 
 <!--
-Or:
-- ⭐ 184k https://github.com/obra/superpowers
-- ⭐ 73k https://github.com/OpenHands/OpenHands
-- ⭐ 61k https://github.com/cline/cline
-- ⭐ 61k https://github.com/gsd-build/get-shit-done
-- ⭐ 46k https://github.com/bmad-code-org/BMAD-METHOD
-- ⭐ 44k https://github.com/aaif-goose/goose
-- ⭐ 44k https://github.com/Aider-AI/aider
-- ⭐ 37k https://github.com/addyosmani/agent-skills
-- ⭐ 33k https://github.com/continuedev/continue
-- ⭐ 27k https://github.com/eyaltoledano/claude-task-master
-- ⭐ 19k https://github.com/stitionai/devika
-- ⭐ 15k https://github.com/plandex-ai/plandex
+- Pull a real example from Itenium ("how we deploy to staging")
+- Team aspect: everyone gets the same skill loadout
+- Block's 3 principles: descriptive name, scoped trigger, layered detail
 -->
-
-
-
 
 
 ---
