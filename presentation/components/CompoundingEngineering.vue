@@ -4,10 +4,14 @@
       v-for="(item, i) in items"
       :key="`box-${i}`"
       class="ce-box"
+      :class="{ 'ce-shine': item.shine }"
       :style="{ background: palette[i % palette.length], gridArea: BOX_AREAS[i] }"
       v-click="firstVisible > i ? undefined : i + 1 - firstVisible"
     >
-      <div class="ce-title">{{ item.title }}</div>
+      <div class="ce-title">
+        <span v-if="item.shine" class="ce-star">★</span>
+        <span class="ce-title-text">{{ item.title }}</span>
+      </div>
       <div class="ce-sub" v-html="item.sub" />
     </div>
 
@@ -47,7 +51,7 @@
 
 <script setup lang="ts">
 withDefaults(defineProps<{
-  items: { title: string, sub: string }[]
+  items: { title: string, sub: string, shine?: boolean }[]
   firstVisible?: number
   palette?: string[]
   arrowColor?: string
@@ -90,12 +94,73 @@ const BOX_AREAS = ['1 / 1', '1 / 3', '3 / 3', '3 / 1']
   transform: scale(0.7);
 }
 
+.ce-shine {
+  border: 2px solid #E78200;
+  animation: ce-shine-pulse 2.4s ease-in-out infinite;
+}
+
+.ce-shine.slidev-vclick-hidden {
+  animation: none;
+}
+
+@keyframes ce-shine-pulse {
+  0%, 100% {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2),
+                0 0 18px rgba(231, 130, 0, 0.45);
+  }
+  50% {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2),
+                0 0 38px rgba(231, 130, 0, 0.85),
+                0 0 60px rgba(255, 216, 74, 0.35);
+  }
+}
+
 .ce-title {
   font-family: 'Rubik', sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.ce-shine .ce-title-text {
+  background-image: linear-gradient(
+    100deg,
+    #ffffff 0%,
+    #ffffff 35%,
+    #fff3b0 50%,
+    #ffd84a 55%,
+    #ffffff 70%,
+    #ffffff 100%
+  );
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: ce-holographic 3.5s linear infinite;
+}
+
+@keyframes ce-holographic {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.ce-star {
+  color: #ffd84a;
+  font-size: 0.9em;
+  text-shadow: 0 0 8px rgba(255, 216, 74, 0.9);
+  animation: ce-spin 6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes ce-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 .ce-sub {

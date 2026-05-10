@@ -860,13 +860,13 @@ layout: default
 ---
 
 # Compounding Engineering
-## Each session improves the next ones
+## Each session should improve the next one
 
 <CompoundingEngineering :items="[
   { title: 'PLAN',     sub: 'Plan it out in detail' },
   { title: 'DELEGATE', sub: 'Let the agent do the work' },
   { title: 'ASSESS',   sub: 'Make sure it works\n(tests, review)' },
-  { title: 'CODIFY',   sub: 'Record what you learned' },
+  { title: 'CODIFY',   sub: 'Record what you learned', shine: true },
 ]" />
 
 
@@ -877,9 +877,14 @@ layout: default
 # Codify
 ## Record what you learned
 
-- What worked? What broke? What pattern to follow next time?
-- 
+<v-clicks depth="2">
 
+- What worked? What broke? What pattern to follow next time?
+- But... We can't put everything in CLAUDE.md!
+  - Which is why we need to master Context Engineering first
+
+
+</v-clicks>
 
 ---
 layout: default
