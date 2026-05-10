@@ -846,14 +846,16 @@ layout: break
 
 
 ---
-layout: section
+layout: quote
 ---
 
 # Compounding Engineering
+## Improve every session
 
-::subtitle::
+::image::
 
-Improve every session
+![](./images/compounding-engineering.jpg)
+
 
 
 ---
@@ -872,9 +874,10 @@ layout: default
 
 <!--
 **CODIFY to COMPOUND**:  
-- What worked? What broke? What pattern to follow next time?
-- But... We can't put everything in CLAUDE.md!
-  - Which is why we need to master Context Engineering first
+- What worked in the plan? What needed adjustment?
+- Issues discovered during ASSES: how to catch earlier?
+- Common mistakes the agent made
+- Patterns and best practices that should be reused
 -->
 
 ---
@@ -904,7 +907,7 @@ AI engineering makes you faster today.
 
 
 ---
-layout: default-aside
+layout: default
 ---
 
 # Record what you learned
@@ -913,7 +916,7 @@ layout: default-aside
 <v-clicks>
 
 - **Skill** — when domain-specific guidance is needed
-- **Slash command** — when a multi-step workflow repeats
+- **Slash Command** — when a multi-step workflow repeats
 - **Hook** — when behavior must be enforced, not requested
 - **Subagent** — when review/research can fan out in parallel
 - **CLAUDE.md** — when it's always-relevant project context
@@ -924,65 +927,95 @@ layout: default-aside
 Corrected the same thing twice? It doesn't belong in chat.
 </div>
 
-<!--
-CONNECT WITH THE OTHER LADDERS:
-- Context Engineering — "We covered the budget. Now you'll see why codifying carefully
-matters: every skill, hook, command costs context."
-- Harness Engineering — "Hooks are how CODIFY becomes deterministic." Natural bridge.
-- Background Agents / Autonomous Teams — compounding is the prerequisite. Without codified
-  knowledge, autonomous agents make the same mistakes forever.
-
-
-What worked in the plan and what needed adjustment
-Issues discovered during testing that weren't caught earlier
-Common mistakes the agent made
-Patterns and best practices that should be reused
-Then embed these insights into:
-
-Claude MD / system prompts: Global coding standards
-Slash commands: Repeatable workflows (e.g., /test-with-validation)
-Subagents: Specialized validators (e.g., security review agent)
-Hooks: Automated checks that prevent regressions
-
-
-
-Trade-offs
-Pros:
-Accelerating productivity: Each feature genuinely makes the next faster
-Knowledge preservation: Learnings don't depend on individual memory
-Better onboarding: New team members (human or AI) leverage accumulated knowledge
-Reduced repetition: Agent stops making the same mistakes
-Living documentation: Instructions stay current because they're used daily
-
-Cons:
-Upfront time investment: Requires discipline to document after each feature
-Maintenance overhead: Prompts and commands need updates as patterns change
-Over-specification risk: Too many rules can make agents inflexible
-Requires tooling: Needs extensible agent system (slash commands, hooks, etc.)
-Prompt bloat: System prompts can grow large over time
--->
 
 ---
-layout: default
+layout: default-aside
+textSize: sm
 ---
 
-# Skills-in-git: your team's playbook
+# Skills-in-git
+## Your team's playbook
 
 <v-clicks depth="2">
 
-- Every skill checked into the repo = institutional memory the agent reads
-- "How we deploy", "how we write tests", "how we review PRs"
-- New hire + AI: onboarded against the same skill files a senior reads
-- Skills compound: every lesson learned becomes one more skill the next session inherits
-- See: [engineering.block.xyz/blog/3-principles-for-designing-agent-skills](https://engineering.block.xyz/blog/3-principles-for-designing-agent-skills)
+- **Personal skills**: `~/.claude/skills/`
+- **Team skills**: `<project>/.claude/skills/`
+  - Same file onboards a new hire **and** the agent
+- Block's 3 design principles:
+  - **Descriptive name** — discoverable from the index
+  - **Scoped trigger** — clear "when does this apply?"
+  - **Layered detail** — overview first, references on-demand
+- Good candidates for a team skill:
+  - "Investigating flaky tests in our pipeline"
+  - "Migrating from _old API_ to _new API_"
+  - "Our deploy runbook"
 
 </v-clicks>
 
+::image::
+
+![](./images/teams-playbook.jpg)
+
 <!--
-- Pull a real example from Itenium ("how we deploy to staging")
-- Team aspect: everyone gets the same skill loadout
-- Block's 3 principles: descriptive name, scoped trigger, layered detail
+Block's 3 principles: descriptive name, scoped trigger, layered detail  
+https://engineering.block.xyz/blog/3-principles-for-designing-agent-skills
 -->
+
+
+
+---
+layout: default
+disabled: true
+---
+
+# Trade-offs
+## Pros
+
+
+- Accelerating productivity: Each feature genuinely makes the next faster
+- Knowledge preservation: Learnings don't depend on individual memory
+- Better onboarding: New team members (human or AI) leverage accumulated knowledge
+- Reduced repetition: Agent stops making the same mistakes
+- Living documentation: Instructions stay current because they're used daily
+
+
+---
+layout: default
+disabled: true
+---
+
+# Trade-offs
+## Cons
+
+- Upfront time investment: Requires discipline to document after each feature
+- Maintenance overhead: Prompts and commands need updates as patterns change
+- Over-specification risk: Too many rules can make agents inflexible
+- Requires tooling: Needs extensible agent system (slash commands, hooks, etc.)
+- Prompt bloat: System prompts can grow large over time
+
+
+---
+layout: default-aside
+---
+
+# Connection to the Other Ladders
+
+<v-clicks depth="2">
+
+- Context Engineering — every instruction, skill, command costs context.
+- Harness Engineering — Hooks are how we become deterministic.
+- Background Agents / Autonomous Teams — compounding is a prerequisite.
+
+</v-clicks>
+
+<div v-click class="full-width text-2xl italic text-orange-400 mt-15">
+Without codified knowledge, agents make the same mistakes.. forever.
+</div>
+
+::image::
+
+![](./images/compounding-other-ladders.jpg)
+
 
 ---
 layout: statement
@@ -1004,30 +1037,28 @@ Arb = arbitrage. Tech/finance slang for exploiting an asymmetry.
 
 
 
-
-
-
-
-
-
 ---
-layout: section
+layout: quote
 ---
 
-# Guardrails
+# Harness Engineering
+## Automated Feedback Loops
 
-::subtitle::
+::image::
 
-Tests are cheap. Make them load-bearing.
+![](./images/harness-engineering.jpg)
+
 
 ---
 layout: default
 ---
 
-# TDD with Claude — the way that actually works
+# Guardrails
+## TDD
 
 <v-clicks depth="2">
 
+- Tests are cheap. Make them load-bearing.
 - Bad: "write me feature X with tests"
 - Good: red-green-refactor, **enforced**
   - Write the test first
