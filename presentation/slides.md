@@ -14,7 +14,7 @@ first: 2026-05-11
 
 ::image::
 
-![](./images/cover.webp)
+![](./images/cover-art.webp)
 
 
 ---
