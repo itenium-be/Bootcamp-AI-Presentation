@@ -29,12 +29,13 @@ git pull
 ### The three
 
 1. **Install Superpowers** — clone [obra/superpowers](https://github.com/obra/superpowers) into `~/.claude/skills/`. You get brainstorming, TDD, debugging, code review and plan-writing skills today, no investment required.
-2. **Audit your context** — open a session, run `/context` and `/mcp`, unload anything you don't need for the task. Set up `/statusline` so context % stays visible. Plan to `/clear` at 40%.
-3. **Write one skill** — pick the thing the agent gets wrong every week. Codify it. That's your first compound-interest payment. Skill anatomy: `~/.claude/skills/<name>/SKILL.md` with frontmatter `name`, `description`. Description is what triggers loading — make it specific.
+2. **Write one skill** — pick the thing the agent gets wrong every week. Codify it. That's your first compound-interest payment. Skill anatomy: `~/.claude/skills/<name>/SKILL.md` with frontmatter `name`, `description`. Description is what triggers loading — make it specific.
+3. **Wire up an LSP MCP** — install [Serena](https://github.com/oraios/serena) (⭐ 24k). Your agent gets go-to-def, find-refs, type info — not grep-and-guess. Refactors land aware of every call site. An MCP that earns its rent.
 
 
 ### Five-minute wins
 
+- Audit your context: run `/context` and `/mcp`, unload anything you don't need. Set up `/statusline` so context % stays visible. Plan to `/clear` at 40%.
 - Move "no `Co-Authored-By`" to `~/.claude/settings.json` → `attribution.commit: ""` and `attribution.pr: ""`.
 - Replace heavyweight MCPs with their CLI: `gh` instead of GitHub MCP, `psql` instead of Postgres MCP. A CLI invocation is zero schema cost; an MCP server adds tokens to every prompt whether you use it or not.
 - Default to `/clear` over `/compact`. `/clear` plus a handover prompt keeps the next session sharp.

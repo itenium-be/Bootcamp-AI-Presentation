@@ -126,7 +126,6 @@ h1:
 ---
 
 # Ladders of AI Maturity
-## Humans steer. Agents execute.
 
 <MaturityLadder
   :items="[
@@ -574,7 +573,7 @@ layout: default
 
 <v-clicks depth="2">
 
-- Spawned by your main session, runs in a fresh context window
+- Spawned by your main session, runs in separate context
 - Returns a **summary**, not raw output
 - Two payoffs:
   - **Context isolation** — main window stays clean
@@ -983,7 +982,7 @@ h2:
 <!--
 **CODIFY to COMPOUND**:  
 - What worked in the plan? What needed adjustment?
-- Issues discovered during ASSES: how to catch earlier?
+- Issues discovered during ASSESS: how to catch earlier?
 - Common mistakes the agent made
 - Patterns and best practices that should be reused
 -->
@@ -1015,12 +1014,12 @@ h2:
 <div v-click class="full-width text-3xl italic text-orange-400 mt-10">
 AI engineering makes you faster today.
 <br>Compounding makes you faster tomorrow, and each day after.
-<br>- Keiran Klaassen
+<br>- Kieran Klaassen
 </div>
 
 ::image::
 
-![](./images/compoung.jpg)
+![](./images/compound.jpg)
 
 
 ---
@@ -1537,6 +1536,16 @@ layout: default
 - MCP, Skills & extending Claude
 - Frameworks comparison
 
+
+---
+layout: statement
+---
+
+# Humans steer.
+# Agents execute.
+
+
+
 ---
 layout: socials
 ---
@@ -1545,6 +1554,7 @@ layout: socials
 layout: source
 source: itenium-be/Bootcamp-AI-Presentation
 ---
+
 
 ---
 layout: end
