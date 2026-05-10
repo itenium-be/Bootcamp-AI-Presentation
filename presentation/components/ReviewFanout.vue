@@ -2,10 +2,9 @@
   <div class="rf-cmp">
     <div class="rf-pr" v-click="cl(1)">PR</div>
 
-    <svg class="rf-arrow rf-arrow-trunk" viewBox="0 0 30 80"
-         preserveAspectRatio="xMidYMid meet" v-click="cl(2)">
-      <line x1="15" y1="4" x2="15" y2="62" stroke="#888" stroke-width="3" stroke-linecap="round" />
-      <polygon points="15,76 5,60 25,60" fill="#888" />
+    <svg class="rf-arrow rf-arrow-trunk" viewBox="0 0 22 50" v-click="cl(2)">
+      <line x1="11" y1="2" x2="11" y2="40" stroke="#888" stroke-width="3" stroke-linecap="round" />
+      <polygon points="11,48 4,38 18,38" fill="#888" />
     </svg>
 
     <div class="rf-skill" v-click="cl(2)">Review Skill</div>
@@ -22,10 +21,9 @@
           :key="i"
           class="rf-agent-col"
         >
-          <svg class="rf-arrow rf-arrow-leg" viewBox="0 0 30 80"
-               preserveAspectRatio="xMidYMid meet">
-            <line x1="15" y1="0" x2="15" y2="62" stroke="#888" stroke-width="3" stroke-linecap="round" />
-            <polygon points="15,76 5,60 25,60" fill="#888" />
+          <svg class="rf-arrow rf-arrow-leg" viewBox="0 0 22 44">
+            <line x1="11" y1="0" x2="11" y2="34" stroke="#888" stroke-width="3" stroke-linecap="round" />
+            <polygon points="11,42 4,33 18,33" fill="#888" />
           </svg>
 
           <div class="rf-agent-box" :style="{ background: item.color || palette[i % palette.length] }">
@@ -52,7 +50,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   firstVisible: 0,
   items: () => [
-    { name: 'Hejlsberg', role: 'C# reviewer' },
+    { name: 'Hejlsberg', role: 'C# Reviewer' },
     { name: 'Beck',      role: 'Test Reviewer' },
     { name: 'Mondrian',  role: 'Avalonia Reviewer' },
   ],
