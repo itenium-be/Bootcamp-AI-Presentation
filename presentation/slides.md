@@ -3,6 +3,7 @@ theme: ./theme
 title: AI Driven Development
 subTitle: From Vibe Coding to Agentic Engineering
 transition: fade
+aspectRatio: 16/10
 session-time: 90min
 track: AI
 type: Theoretical
