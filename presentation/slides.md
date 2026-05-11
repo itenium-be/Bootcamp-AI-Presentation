@@ -4,7 +4,7 @@ title: AI Driven Development
 subTitle: From Vibe Coding to Agentic Engineering
 transition: fade
 aspectRatio: 16/10
-session-time: 90min
+session-time: 120min
 track: AI
 type: Theoretical
 first: 2026-05-11
@@ -105,6 +105,8 @@ h2:
 AI is especially good in a few things out of the box:  
 ex: Prototyping, Onboarding, Modernization, Refactoring, Replacing obsolete dependencies  
 -> Just fire it up now, we'll cover details later!
+
+**MAKE SURE YOU'RE ON AUTO-MODE**
 -->
 
 
